@@ -11,7 +11,13 @@ export default defineConfig({
   build: {
     outDir: 'courts_storefront/public/dist',
     emptyOutDir: true,
-    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]',
+      }
+    }
   },
   server: {
     proxy: {
