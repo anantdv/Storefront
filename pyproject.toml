@@ -1,0 +1,18 @@
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "courts_storefront"
+authors = [
+    {name = "Anantdv", email = "enquiry@courts.com.pg"}
+]
+description = "Courts E-Commerce Storefront customized for Frappe / ERPNext integration"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    "frappe"
+]
+
+[project.urls]
+Homepage = "https://courtsdemo.advtinni.com"

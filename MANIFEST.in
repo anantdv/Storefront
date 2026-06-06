@@ -1,0 +1,10 @@
+include LICENSE
+include README.md
+recursive-include courts_storefront *.html
+recursive-include courts_storefront *.css
+recursive-include courts_storefront *.js
+recursive-include courts_storefront *.py
+recursive-include courts_storefront *.svg
+recursive-include courts_storefront *.png
+recursive-include courts_storefront *.txt
+recursive-exclude courts_storefront *.pyc
