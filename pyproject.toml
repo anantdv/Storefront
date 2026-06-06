@@ -10,9 +10,7 @@ authors = [
 description = "Courts E-Commerce Storefront customized for Frappe / ERPNext integration"
 readme = "README.md"
 dynamic = ["version"]
-dependencies = [
-    "frappe"
-]
+dependencies = []
 
 [project.urls]
 Homepage = "https://courtsdemo.advtinni.com"
