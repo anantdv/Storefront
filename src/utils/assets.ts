@@ -10,10 +10,9 @@ export function getAssetUrl(path: string): string {
   
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
   
-  // Under Frappe, the app is served on a path starting with /courts,
-  // and static assets are located under the /assets/courts_storefront/dist/ directory.
-  const isFrappe = window.location.pathname.startsWith('/courts');
-  if (isFrappe) {
+  // In production (non-localhost), static assets are always served from the Frappe assets directory
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocalhost) {
     return `/assets/courts_storefront/dist/${cleanPath}`;
   }
   

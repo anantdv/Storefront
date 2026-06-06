@@ -34,6 +34,7 @@ function App() {
       <main className="flex-1 w-full">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
