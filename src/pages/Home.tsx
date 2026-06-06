@@ -5,6 +5,7 @@ import { ProductSliderSection } from '../components/product/ProductSliderSection
 import { productService } from '../services/product.service';
 import { Product, Category } from '../types/shop.types';
 import { useConfigStore } from '../store/useConfigStore';
+import { getAssetUrl } from '../utils/assets';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -125,7 +126,7 @@ export const Home: React.FC = () => {
       cta: "Pre-book Now",
       link: "/catalog?search=xiaomi",
       bg: "bg-[#0b0312]",
-      img: "/xiaomi_banner.png",
+      img: getAssetUrl('/xiaomi_banner.png'),
       isXiaomi: true
     },
     {

@@ -6,6 +6,7 @@ import { useWishlistStore } from '../../store/useWishlistStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useConfigStore } from '../../store/useConfigStore';
 import { productService } from '../../services/product.service';
+import { getAssetUrl } from '../../utils/assets';
 
 interface NavbarProps {
   onToggleMobileMenu: () => void;
@@ -100,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
               <Menu className="h-6 w-6" />
             </button>
             <Link to="/" className="flex items-center gap-2 hover:opacity-95">
-              <img src="/logo.png" alt="Courts Logo" className="h-9 w-auto object-contain" />
+              <img src={getAssetUrl('/logo.png')} alt="Courts Logo" className="h-9 w-auto object-contain" />
             </Link>
           </div>
 

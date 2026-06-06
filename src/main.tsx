@@ -14,10 +14,12 @@ const queryClient = new QueryClient({
   }
 });
 
+const basename = window.location.pathname.startsWith('/courts') ? '/courts' : '/';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <App />
       </BrowserRouter>
     </QueryClientProvider>

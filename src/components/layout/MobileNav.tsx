@@ -4,6 +4,7 @@ import { X, User, Package, Settings, LogOut, BookOpen, Compass, Store, Headphone
 import { useAuthStore } from '../../store/useAuthStore';
 import { productService } from '../../services/product.service';
 import { Category } from '../../types/shop.types';
+import { getAssetUrl } from '../../utils/assets';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -39,7 +40,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
       <div className="relative flex w-full max-w-xs flex-col bg-white pb-4 shadow-xl animate-in slide-in-from-left duration-300 overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 bg-[#0060a9] border-b border-[#005596]">
           <Link to="/" onClick={onClose} className="hover:opacity-95">
-            <img src="/logo.png" alt="Courts Logo" className="h-7 w-auto object-contain" />
+            <img src={getAssetUrl('/logo.png')} alt="Courts Logo" className="h-7 w-auto object-contain" />
           </Link>
           <button onClick={onClose} className="rounded-lg p-1.5 text-white hover:bg-white/10 cursor-pointer border-none bg-transparent">
             <X className="h-5 w-5" />

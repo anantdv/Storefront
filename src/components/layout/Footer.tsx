@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Package } from 'lucide-react';
 import { useConfigStore } from '../../store/useConfigStore';
+import { getAssetUrl } from '../../utils/assets';
 
 export const Footer: React.FC = () => {
   const { storeName } = useConfigStore();
@@ -14,7 +15,7 @@ export const Footer: React.FC = () => {
           {/* Company Details */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2 hover:opacity-95">
-              <img src="/logo.png" alt="Courts Logo" className="h-8 w-auto object-contain brightness-0 invert" />
+              <img src={getAssetUrl('/logo.png')} alt="Courts Logo" className="h-8 w-auto object-contain brightness-0 invert" />
             </Link>
             <p className="text-sm text-slate-400">
               Your one-stop destination for premium electronics, fashion, groceries, and more, integrated directly with enterprise-grade ERPNext logistics.
