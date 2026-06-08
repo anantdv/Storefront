@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Heart, User, Search, Settings, Menu, X, LogOut, Package, ShieldCheck, Store, Headphones, CreditCard, ShoppingBag, Bot } from 'lucide-react';
+import { ShoppingCart, Heart, User, Search, Menu, X, LogOut, Package, Store, Headphones, CreditCard, ShoppingBag, Bot } from 'lucide-react';
 import { useCartStore } from '../../store/useCartStore';
 import { useWishlistStore } from '../../store/useWishlistStore';
 import { useAuthStore } from '../../store/useAuthStore';
 import { useConfigStore } from '../../store/useConfigStore';
+import { useUIStore } from '../../store/useUIStore';
 import { productService } from '../../services/product.service';
 import { getAssetUrl } from '../../utils/assets';
 
@@ -18,6 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
   const { items: wishlistItems } = useWishlistStore();
   const { isAuthenticated, user, logout } = useAuthStore();
   const { storeName } = useConfigStore();
+  const { openAuthModal } = useUIStore();
   
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState<{ products: string[]; categories: string[] }>({ products: [], categories: [] });
@@ -87,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#0060a9] border-b border-[#005596] shadow-md transition-all duration-300">
+    <header className="sticky top-0 z-40 w-full bg-[#0a1128] border-b border-[#141b38] shadow-md transition-all duration-300">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
           
@@ -202,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
                         (window as any).openTinniChat();
                       }
                     }}
-                    className="flex w-full items-center gap-2 px-3 py-2 text-left rounded-xl hover:bg-indigo-50 text-[#0060a9] hover:text-[#005596] font-bold transition-colors cursor-pointer border-none bg-transparent"
+                    className="flex w-full items-center gap-2 px-3 py-2 text-left rounded-xl hover:bg-amber-50 text-[#0a1128] hover:text-amber-800 font-bold transition-colors cursor-pointer border-none bg-transparent"
                   >
                     <Bot className="h-4 w-4" />
                     Chat with Tinni (AI)
@@ -230,14 +232,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
               <span>Hire Purchase</span>
             </Link>
 
-            {/* Admin Config Button */}
-            <Link
-              to="/admin"
-              className="rounded-full p-2 text-white hover:bg-white/10 transition-all"
-              title="Admin ERP Configuration"
-            >
-              <Settings className="h-5.5 w-5.5" />
-            </Link>
 
             {/* Wishlist Icon */}
             <Link
@@ -247,7 +241,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
             >
               <Heart className="h-5.5 w-5.5" />
               {wishlistCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-rose-500 text-xxs font-bold text-white ring-2 ring-[#0060a9]">
+                <span className="absolute top-1 right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-rose-500 text-xxs font-bold text-white ring-2 ring-[#0a1128]">
                   {wishlistCount}
                 </span>
               )}
@@ -261,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
             >
               <ShoppingCart className="h-5.5 w-5.5" />
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-amber-400 text-xxs font-black text-slate-900 ring-2 ring-[#0060a9]">
+                <span className="absolute top-1 right-1 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-[#fcd34d] text-xxs font-black text-slate-900 ring-2 ring-[#0a1128]">
                   {cartCount}
                 </span>
               )}
@@ -275,7 +269,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
                     onClick={() => setShowProfileMenu(!showProfileMenu)}
                     className="flex items-center gap-1.5 rounded-full bg-white/10 p-1 pr-3 hover:bg-white/20 border border-white/10 transition-all text-white"
                   >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs font-bold text-[#0060a9]">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fcd34d] text-xs font-bold text-[#0a1128]">
                       {user?.name ? user.name[0] : <User className="h-4 w-4" />}
                     </div>
                     <span className="text-xs font-bold text-white hidden sm:inline-block max-w-[80px] truncate">
@@ -322,13 +316,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
                   )}
                 </>
               ) : (
-                <Link
-                  to="/account?tab=login"
-                  className="flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 py-1.5 px-3.5 transition-all text-white"
+                <button
+                  onClick={() => openAuthModal('login')}
+                  className="flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 py-1.5 px-3.5 transition-all text-white cursor-pointer border-none"
                 >
                   <User className="h-4 w-4 text-white" />
                   <span className="text-xs font-bold text-white">Login</span>
-                </Link>
+                </button>
               )}
             </div>
 

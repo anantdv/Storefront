@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCartStore } from '../store/useCartStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useConfigStore } from '../store/useConfigStore';
+import { useUIStore } from '../store/useUIStore';
 import { orderService } from '../services/order.service';
-import { getApiClient } from '../services/api.client';
+import { getPublicApiClient } from '../services/api.client';
 import { StepIndicator } from '../components/checkout/StepIndicator';
 import { Address } from '../types/shop.types';
-import { CheckCircle2, Landmark, Truck } from 'lucide-react';
+import { CheckCircle2, Landmark, Loader2, Truck } from 'lucide-react';
 
 const fetchWarehouses = async (): Promise<string[]> => {
   try {
-    const client = getApiClient();
+    const client = getPublicApiClient();
     const res = await client.get('/api/resource/Warehouse', {
       params: {
         fields: '["name", "warehouse_name"]',
@@ -36,6 +37,9 @@ export const Checkout: React.FC = () => {
   const { items, couponCode, getTotals, clearCart } = useCartStore();
   const { isAuthenticated, user, addAddress } = useAuthStore();
   const { currency } = useConfigStore();
+
+  const navigate = useNavigate();
+  const { openAuthModal } = useUIStore();
 
   const [step, setStep] = useState(1);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(
@@ -69,6 +73,7 @@ export const Checkout: React.FC = () => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [orderLoading, setOrderLoading] = useState(false);
 
   const totals = getTotals();
 
@@ -82,6 +87,14 @@ export const Checkout: React.FC = () => {
     };
     loadWarehouses();
   }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      sessionStorage.setItem('redirectAfterLogin', '/checkout');
+      openAuthModal('login');
+      navigate('/cart', { replace: true });
+    }
+  }, [isAuthenticated, navigate, openAuthModal]);
 
   const handleNextStep = () => {
     setErrors({});
@@ -121,6 +134,8 @@ export const Checkout: React.FC = () => {
   };
 
   const handlePlaceOrder = async () => {
+    setErrors({});
+    setOrderLoading(true);
     try {
       const method = deliveryMethod === 'Store Pick up' 
         ? `Store Pickup - ${selectedWarehouse}` 
@@ -143,9 +158,11 @@ export const Checkout: React.FC = () => {
         setStep(4);
         clearCart();
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setErrors({ general: 'Failed to create sales order on ERPNext. Try again.' });
+      setErrors({ general: e.message || 'Failed to place order. Please try again.' });
+    } finally {
+      setOrderLoading(false);
     }
   };
 
@@ -437,9 +454,17 @@ export const Checkout: React.FC = () => {
                 </button>
                 <button
                   onClick={handlePlaceOrder}
-                  className="flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 text-xs font-black shadow-md shadow-emerald-150 transition-colors"
+                  disabled={orderLoading}
+                  className="flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white py-2.5 text-xs font-black shadow-md shadow-emerald-150 transition-colors flex items-center justify-center gap-2"
                 >
-                  Place Sales Order
+                  {orderLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Placing Order…
+                    </>
+                  ) : (
+                    'Place Sales Order'
+                  )}
                 </button>
               </div>
             </div>

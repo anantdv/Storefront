@@ -244,12 +244,12 @@ export const Home: React.FC = () => {
   return (
     <div className="space-y-6 pb-16">
       
-      <div className="mx-4 sm:mx-6 lg:mx-8 bg-white border-b border-slate-100 py-3.5 overflow-x-auto whitespace-nowrap scrollbar-none shadow-xxs rounded-2xl" ref={topCategoryScrollRef}>
-        <div className="max-w-7xl mx-auto px-4 flex justify-start md:justify-center items-center gap-6 text-xs sm:text-sm font-black text-slate-700 tracking-wide uppercase">
+      <div className="w-full bg-[#131b35] border-b border-[#1c264a] py-3.5 px-4 sm:px-6 lg:px-8 overflow-x-auto whitespace-nowrap scrollbar-none shadow-md" ref={topCategoryScrollRef}>
+        <div className="max-w-7xl mx-auto px-4 flex justify-start md:justify-center items-center gap-6 text-xs sm:text-sm font-black text-slate-100 tracking-wide uppercase">
           {categories.map((cat) => {
             const categorySlug = cat.name.toLowerCase().replace(/\s+/g, '-');
             return (
-              <Link key={cat.id} to={`/catalog?category=${categorySlug}`} className="hover:text-indigo-650 transition-colors">
+              <Link key={cat.id} to={`/catalog?category=${categorySlug}`} className="hover:text-[#fcd34d] transition-colors">
                 {cat.name}
               </Link>
             );
@@ -417,12 +417,105 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Amazon-style Highlights Grid */}
+      <section className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          {/* Card 1: Keep shopping for */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
+            <div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Keep shopping for</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {allProducts.slice(0, 4).map((prod) => (
+                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
+                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
+                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
+                    </div>
+                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
+              View your browsing history
+            </Link>
+          </div>
+
+          {/* Card 2: Continue shopping deals */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
+            <div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Continue shopping deals</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {allProducts.slice(4, 8).map((prod) => (
+                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
+                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
+                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
+                    </div>
+                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
+              See more deals
+            </Link>
+          </div>
+
+          {/* Card 3: Pick up where you left off */}
+          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
+            <div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Pick up where you left off</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {allProducts.slice(1, 5).map((prod) => (
+                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
+                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
+                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
+                    </div>
+                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
+              Laptops & Tech
+            </Link>
+          </div>
+
+          {/* Card 4: Promotions & Offers */}
+          <div className="space-y-4 flex flex-col justify-between">
+            {/* Box A: Bulk Discounts */}
+            <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm sm:text-base font-extrabold text-slate-800 leading-tight">Bulk discounts + 10% guaranteed cashback !</h3>
+                <p className="text-[10px] text-slate-400 font-semibold mt-1">On business orders & bulk checkouts.</p>
+              </div>
+              <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-3 inline-block hover:underline">
+                Register now
+              </Link>
+            </div>
+            
+            {/* Box B: Deal of the Day promo */}
+            <div className="bg-[#fffbeb] border border-amber-100 rounded-3xl p-5 shadow-3xs flex-1 flex flex-col justify-between">
+              <div>
+                <span className="text-[9px] font-black uppercase text-amber-800 tracking-wider bg-amber-100 px-2 py-0.5 rounded-md inline-block">Promoted Offer</span>
+                <h3 className="text-xs sm:text-sm font-extrabold text-amber-955 mt-2 leading-tight">Little Joys Immunity Booster Pack</h3>
+                <p className="text-[10px] text-amber-800/80 font-bold mt-1">Get <span className="font-black text-rose-650">-9% off</span> on orders today!</p>
+              </div>
+              <Link to="/catalog" className="text-xxs font-extrabold text-amber-900 hover:text-amber-955 mt-3 inline-block hover:underline uppercase tracking-wider">
+                Shop Prime Deal
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* Shop by Category icon grid (merged with Summer Store layout and dynamic) */}
       <section className="w-full px-4 sm:px-6 lg:px-8">
         <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs">
           
           <div className="flex items-center justify-between mb-4 px-1">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">Shop by Category</h3>
+            <h3 className="text-lg sm:text-xl font-black uppercase tracking-wider text-slate-800">Shop by Category</h3>
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => scrollCategories('left')}
@@ -441,16 +534,16 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-none" ref={categoryScrollRef}>
+          <div className="flex items-center gap-6 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-none" ref={categoryScrollRef}>
             
             {/* Summer Store Logo */}
-            <div className="flex flex-col items-center justify-center text-center p-2.5 group cursor-pointer shrink-0 snap-start" onClick={() => navigate('/catalog?search=summer')}>
+            <div className="flex flex-col items-center justify-center text-center p-2.5 group cursor-pointer shrink-0 snap-start min-w-[120px]" onClick={() => navigate('/catalog?search=summer')}>
               <div className="flex flex-col items-center relative">
-                <span className="text-[14px] font-light text-rose-500 italic leading-none relative font-serif">
+                <span className="text-[20px] font-light text-rose-500 italic leading-none relative font-serif">
                   summer
-                  <span className="absolute -top-3 -right-2 text-[9px]">☀️</span>
+                  <span className="absolute -top-3 -right-2 text-[12px]">☀️</span>
                 </span>
-                <span className="text-2xl font-black tracking-tighter text-red-650 leading-none mt-1">STORE</span>
+                <span className="text-3xl font-black tracking-tighter text-red-650 leading-none mt-1">STORE</span>
               </div>
             </div>
 
@@ -461,12 +554,12 @@ export const Home: React.FC = () => {
                 <div
                   key={cat.id}
                   onClick={() => navigate(`/catalog?category=${categorySlug}`)}
-                  className="flex flex-col items-center justify-center text-center p-2 group cursor-pointer hover:scale-105 transition-transform shrink-0 snap-start min-w-[100px]"
+                  className="flex flex-col items-center justify-center text-center p-2 group cursor-pointer hover:scale-105 transition-transform shrink-0 snap-start min-w-[120px]"
                 >
-                  <div className="h-12 w-12 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-2xl group-hover:bg-indigo-50 transition-colors">
+                  <div className="h-16 w-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-3xl group-hover:bg-indigo-50 transition-colors">
                     {getIcon(cat.name)}
                   </div>
-                  <span className="text-xs sm:text-sm font-extrabold text-slate-750 mt-2 truncate max-w-[110px]">{cat.name}</span>
+                  <span className="text-sm font-black text-slate-750 mt-2 truncate max-w-[110px]">{cat.name}</span>
                 </div>
               );
             })}

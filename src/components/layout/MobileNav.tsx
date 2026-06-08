@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { X, User, Package, Settings, LogOut, BookOpen, Compass, Store, Headphones, CreditCard, Bot } from 'lucide-react';
+import { X, User, Package, LogOut, BookOpen, Compass, Store, Headphones, CreditCard, Bot } from 'lucide-react';
 import { useAuthStore } from '../../store/useAuthStore';
+import { useUIStore } from '../../store/useUIStore';
 import { productService } from '../../services/product.service';
 import { Category } from '../../types/shop.types';
 import { getAssetUrl } from '../../utils/assets';
@@ -13,6 +14,7 @@ interface MobileNavProps {
 
 export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
   const { isAuthenticated, user, logout } = useAuthStore();
+  const { openAuthModal } = useUIStore();
   const [categories, setCategories] = React.useState<Category[]>([]);
 
   React.useEffect(() => {
@@ -62,13 +64,12 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
           ) : (
             <div>
               <p className="text-sm font-semibold text-slate-600 mb-2">Welcome to our store!</p>
-              <Link
-                to="/account?tab=login"
-                onClick={onClose}
-                className="flex w-full items-center justify-center rounded-xl bg-indigo-600 py-2 text-center text-sm font-bold text-white shadow-md shadow-indigo-150 hover:bg-indigo-700 transition-colors"
+              <button
+                onClick={() => { onClose(); openAuthModal('login'); }}
+                className="flex w-full items-center justify-center rounded-xl bg-[#0060a9] py-2 text-center text-sm font-bold text-white shadow-md shadow-indigo-150 hover:bg-[#005596] transition-colors cursor-pointer border-none"
               >
                 Sign In / Register
-              </Link>
+              </button>
             </div>
           )}
         </div>
@@ -114,14 +115,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
                 <Bot className="h-4.5 w-4.5 text-[#0060a9]" />
                 <span>Chat with Tinni (AI)</span>
               </button>
-              <Link
-                to="/admin"
-                onClick={onClose}
-                className="flex items-center gap-2.5 py-2 px-3 text-sm font-semibold text-slate-700 rounded-lg hover:bg-slate-50"
-              >
-                <Settings className="h-4.5 w-4.5 text-slate-500" />
-                ERP Configuration
-              </Link>
+
             </div>
           </div>
 

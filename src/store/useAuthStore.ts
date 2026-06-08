@@ -8,7 +8,7 @@ interface AuthState {
   token: string | null;
   user: UserProfile | null;
   login: (email: string, token: string, user?: UserProfile) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   updateProfile: (name: string, phone?: string) => void;
   addAddress: (address: Address) => void;
   updateAddress: (addressId: string, address: Partial<Address>) => void;
@@ -28,8 +28,14 @@ export const useAuthStore = create<AuthState>()(
         token,
         user: user || { ...MOCK_USER, email, name: email.split('@')[0] }
       }),
-      logout: () => {
-        set({ isAuthenticated: false, token: null, user: null });
+      logout: async () => {
+        try {
+          const { authService } = await import('../services/auth.service');
+          await authService.logout();
+        } catch (e) {
+          console.warn('Logout service call failed:', e);
+        }
+        set({ isAuthenticated: false, user: null, token: null });
         // Trigger full page reload to clear memory caches as per secure coder guidelines
         window.location.href = '/';
       },

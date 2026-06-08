@@ -1,5 +1,5 @@
-import { getApiClient, simulateLatency } from './api.client';
-import { useConfigStore } from '../store/useConfigStore';
+import { getPublicApiClient, simulateLatency } from './api.client';
+import { STORE_CONFIG } from '../config/store.config';
 import { MOCK_WAREHOUSES } from './mockData';
 
 export interface WarehouseStock {
@@ -9,7 +9,7 @@ export interface WarehouseStock {
 
 export const inventoryService = {
   async getItemStock(itemCode: string): Promise<WarehouseStock[]> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       // Return mock warehouses with varying stock amounts based on item code
       const modifier = itemCode.charCodeAt(itemCode.length - 1) % 5;
@@ -20,7 +20,7 @@ export const inventoryService = {
       return simulateLatency(stocks);
     }
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     // Query Bin standard document or Stock Ledger Entry summary in ERPNext
     const response = await client.get('/api/resource/Bin', {
       params: {

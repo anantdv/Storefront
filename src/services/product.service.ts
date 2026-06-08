@@ -1,4 +1,5 @@
-import { getApiClient, simulateLatency } from './api.client';
+import { getPublicApiClient, simulateLatency } from './api.client';
+import { STORE_CONFIG } from '../config/store.config';
 import { useConfigStore } from '../store/useConfigStore';
 import { MOCK_PRODUCTS, MOCK_CATEGORIES } from './mockData';
 import { Product, Category } from '../types/shop.types';
@@ -45,13 +46,13 @@ const mapCurrencyCodeToSymbol = (code: string): string => {
 
 export const productService = {
   async getCategories(): Promise<Category[]> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       return simulateLatency(MOCK_CATEGORIES);
     }
     
     try {
-      const client = getApiClient();
+      const client = getPublicApiClient();
       const response = await client.get('/api/method/erpnext.api.get_categories');
       
       if (!response.data?.message) {
@@ -74,12 +75,12 @@ export const productService = {
   },
 
   async getBrands(): Promise<string[]> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       return simulateLatency(['Tefal', 'Sencor', 'HiFuture', 'Sony', 'Samsung', 'LG']);
     }
     try {
-      const client = getApiClient();
+      const client = getPublicApiClient();
       const res = await client.get('/api/method/erpnext.api.get_brands');
       if (res.data?.message && Array.isArray(res.data.message) && res.data.message.length > 0) {
         return res.data.message.map((b: any) => typeof b === 'string' ? b : b.brand || b.name);
@@ -111,7 +112,7 @@ export const productService = {
     page?: number;
     page_size?: number;
   }): Promise<Product[] & { pagination?: { page: number; page_size: number; total: number; pages: number } }> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       let filtered = [...MOCK_PRODUCTS];
       if (filters?.category) {
@@ -146,7 +147,7 @@ export const productService = {
       return simulateLatency(paginated);
     }
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     try {
       // Map front-end category slug back to exact server Item Group Name
       let serverCategory = filters?.category;
@@ -178,8 +179,7 @@ export const productService = {
       const mappedProducts = await Promise.all(productsList.map(async (item: any, idx: number) => {
         let itemImage = item.website_image || item.image || '';
         if (itemImage && itemImage.startsWith('/')) {
-          const { erpnextUrl } = useConfigStore.getState();
-          const cleanBase = erpnextUrl.endsWith('/') ? erpnextUrl.slice(0, -1) : erpnextUrl;
+          const cleanBase = STORE_CONFIG.erpnextUrl.endsWith('/') ? STORE_CONFIG.erpnextUrl.slice(0, -1) : STORE_CONFIG.erpnextUrl;
           itemImage = `${cleanBase}${itemImage}`;
         }
         if (!itemImage) {
@@ -221,9 +221,9 @@ export const productService = {
               resolvedPrice = standardSelling.price_list_rate || 0;
               if (standardSelling.currency) {
                 const symbol = mapCurrencyCodeToSymbol(standardSelling.currency);
-                const currentCurrency = useConfigStore.getState().currency;
-                if (currentCurrency !== symbol) {
-                  useConfigStore.getState().setConfigs({ currency: symbol });
+                const { currency, setCurrency } = useConfigStore.getState();
+                if (currency !== symbol) {
+                  setCurrency(symbol);
                 }
               }
             }
@@ -282,13 +282,13 @@ export const productService = {
   },
 
   async getProductById(id: string): Promise<Product | null> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       const product = MOCK_PRODUCTS.find(p => p.id === id) || null;
       return simulateLatency(product);
     }
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     try {
       const response = await client.get('/api/method/erpnext.api.get_product', {
         params: { route: id }
@@ -298,8 +298,7 @@ export const productService = {
       if (item) {
         let image = item.website_image || item.image || '';
         if (image && image.startsWith('/')) {
-          const { erpnextUrl } = useConfigStore.getState();
-          const cleanBase = erpnextUrl.endsWith('/') ? erpnextUrl.slice(0, -1) : erpnextUrl;
+          const cleanBase = STORE_CONFIG.erpnextUrl.endsWith('/') ? STORE_CONFIG.erpnextUrl.slice(0, -1) : STORE_CONFIG.erpnextUrl;
           image = `${cleanBase}${image}`;
         }
         if (!image) {
@@ -335,9 +334,9 @@ export const productService = {
             resolvedPrice = standardSelling.price_list_rate || 0;
             if (standardSelling.currency) {
               const symbol = mapCurrencyCodeToSymbol(standardSelling.currency);
-              const currentCurrency = useConfigStore.getState().currency;
-              if (currentCurrency !== symbol) {
-                useConfigStore.getState().setConfigs({ currency: symbol });
+              const { currency, setCurrency } = useConfigStore.getState();
+              if (currency !== symbol) {
+                setCurrency(symbol);
               }
             }
           }
@@ -385,10 +384,10 @@ export const productService = {
     reviewerName: string;
     reviewerEmail: string;
   }): Promise<boolean> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) return true;
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     try {
       // 1. Try custom Product Review resource insertion
       await client.post('/api/resource/Product Review', {
@@ -426,7 +425,7 @@ export const productService = {
     review: string;
     date: string;
   }[]> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       return [
         { reviewerName: 'Maea K.', reviewerEmail: 'maea@example.com', rating: 5, review: 'Fantastic quality and extremely fast delivery. Highly recommend this for home setups.', date: 'May 12, 2026' },
@@ -434,7 +433,7 @@ export const productService = {
       ];
     }
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     try {
       // 1. Try fetching from custom Product Review doctype
       const res = await client.get('/api/resource/Product Review', {

@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, ShoppingBag, ArrowRight, Tag, Percent } from 'lucide-react';
+import { Trash2, ShoppingBag, ArrowRight, Tag, Percent, LogIn } from 'lucide-react';
 import { useCartStore } from '../store/useCartStore';
 import { useConfigStore } from '../store/useConfigStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { useUIStore } from '../store/useUIStore';
 
 export const Cart: React.FC = () => {
   const navigate = useNavigate();
   const { items, updateQuantity, removeFromCart, couponCode, applyCoupon, removeCoupon, getTotals } = useCartStore();
   const { currency } = useConfigStore();
+  const { isAuthenticated } = useAuthStore();
+  const { openAuthModal } = useUIStore();
   const [couponInput, setCouponInput] = useState('');
   const [couponError, setCouponError] = useState('');
   const [couponSuccess, setCouponSuccess] = useState('');
@@ -31,6 +35,11 @@ export const Cart: React.FC = () => {
   };
 
   const handleCheckoutClick = () => {
+    if (!isAuthenticated) {
+      sessionStorage.setItem('redirectAfterLogin', '/checkout');
+      openAuthModal('login');
+      return;
+    }
     navigate('/checkout');
   };
 
@@ -206,9 +215,20 @@ export const Cart: React.FC = () => {
               onClick={handleCheckoutClick}
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white py-3 text-sm font-black transition-all shadow-md shadow-indigo-150"
             >
-              Checkout Order
-              <ArrowRight className="h-4.5 w-4.5" />
+              {isAuthenticated ? (
+                <>Checkout Order <ArrowRight className="h-4.5 w-4.5" /></>
+              ) : (
+                <>
+                  <LogIn className="h-4.5 w-4.5" />
+                  Sign in to Checkout
+                </>
+              )}
             </button>
+            {!isAuthenticated && (
+              <p className="mt-2 text-center text-xxs font-semibold text-slate-400">
+                You must be logged in to place an order.
+              </p>
+            )}
           </div>
 
         </div>

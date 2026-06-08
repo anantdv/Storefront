@@ -1,5 +1,5 @@
-import { getApiClient, simulateLatency } from './api.client';
-import { useConfigStore } from '../store/useConfigStore';
+import { getPublicApiClient, simulateLatency } from './api.client';
+import { STORE_CONFIG } from '../config/store.config';
 
 export interface PricingRule {
   name: string;
@@ -11,7 +11,7 @@ export interface PricingRule {
 
 export const pricingService = {
   async getPricingRule(itemCode: string, customerId?: string): Promise<PricingRule | null> {
-    const { useMock } = useConfigStore.getState();
+    const useMock = STORE_CONFIG.useMock;
     if (useMock) {
       // Mock pricing rule for SonicWave headphones
       if (itemCode === 'SKU-ELE-001') {
@@ -25,7 +25,7 @@ export const pricingService = {
       return simulateLatency(null);
     }
 
-    const client = getApiClient();
+    const client = getPublicApiClient();
     // Fetch pricing rules matched by item code
     try {
       const response = await client.get('/api/resource/Pricing Rule', {

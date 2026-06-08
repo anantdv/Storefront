@@ -4,6 +4,7 @@ import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { MobileNav } from './components/layout/MobileNav';
 import { AIChatWidget } from './components/layout/AIChatWidget';
+import { AuthModal } from './components/layout/AuthModal';
 
 // Pages
 import { Home } from './pages/Home';
@@ -12,7 +13,6 @@ import { ProductDetails } from './pages/ProductDetails';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Account } from './pages/Account';
-import { AdminConfig } from './pages/AdminConfig';
 import { StoreLocator } from './pages/StoreLocator';
 import { HirePurchase } from './pages/HirePurchase';
 
@@ -27,6 +27,9 @@ function App() {
       {/* Side navigation drawer for smaller viewports */}
       <MobileNav isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
+      {/* Global Auth Modal — triggered by Cart / Checkout login guard */}
+      <AuthModal />
+
       {/* Movable AI chat assistant floating widget */}
       <AIChatWidget />
 
@@ -40,7 +43,6 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/admin" element={<AdminConfig />} />
           <Route path="/store-locator" element={<StoreLocator />} />
           <Route path="/hire-purchase" element={<HirePurchase />} />
         </Routes>
