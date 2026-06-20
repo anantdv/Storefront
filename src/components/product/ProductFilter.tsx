@@ -49,38 +49,32 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({ filters, onChange,
   );
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-xxs space-y-6">
-      
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-800">Filters</h3>
-        <button
-          onClick={onClear}
-          className="text-xs font-bold text-indigo-600 hover:text-indigo-700 transition-colors"
-        >
+    <div className="space-y-5 rounded-[1.5rem] border border-black/10 bg-white p-4 shadow-[0_18px_40px_rgba(11,13,16,0.08)] sm:space-y-6 sm:p-5">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-sm font-black uppercase tracking-[0.25em] text-[#0b0d10]">Filters</h3>
+        <button onClick={onClear} className="text-xs font-black text-[#1357d9] transition-colors hover:text-[#f11d2b]">
           Clear All
         </button>
       </div>
 
-      {/* Categories */}
-      <div className="border-t border-slate-50 pt-5">
-        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2">Category</h4>
+      <div className="border-t border-slate-100 pt-4 sm:pt-5">
+        <h4 className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-slate-400">Category</h4>
         <input
           type="text"
           placeholder="Search categories..."
           value={categorySearch}
           onChange={(e) => setCategorySearch(e.target.value)}
-          className="w-full rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-1.5 text-xs font-semibold text-slate-855 focus:border-indigo-500 focus:bg-white focus:outline-none mb-3"
+          className="mb-3 w-full rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-semibold text-slate-800 focus:border-[#1357d9] focus:bg-white focus:outline-none"
         />
-        <div className="space-y-1.5 max-h-[650px] overflow-y-auto pr-1 scrollbar-thin">
+        <div className="max-h-[350px] space-y-1.5 overflow-y-auto pr-1 scrollbar-thin sm:max-h-[650px]">
           {filteredCategories.slice(0, 20).map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
-              className={`flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-xs font-bold transition-all border ${
+              className={`flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-xs font-bold transition-all ${
                 filters.category === cat.id
-                  ? 'bg-indigo-55 bg-indigo-50 border-indigo-200 text-indigo-700 font-black shadow-xs'
-                  : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-800'
+                  ? 'border-[#1357d9] bg-[#1357d9]/10 text-[#1357d9]'
+                  : 'border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-900'
               }`}
             >
               <span>{cat.name}</span>
@@ -90,26 +84,25 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({ filters, onChange,
         </div>
       </div>
 
-      {/* Brands */}
-      <div className="border-t border-slate-50 pt-5">
-        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-2">Brand</h4>
+      <div className="border-t border-slate-100 pt-4 sm:pt-5">
+        <h4 className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-slate-400">Brand</h4>
         <input
           type="text"
           placeholder="Search brands..."
           value={brandSearch}
           onChange={(e) => setBrandSearch(e.target.value)}
-          className="w-full rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-1.5 text-xs font-semibold text-slate-855 focus:border-indigo-500 focus:bg-white focus:outline-none mb-3"
+          className="mb-3 w-full rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-semibold text-slate-800 focus:border-[#1357d9] focus:bg-white focus:outline-none"
         />
-        <div className="space-y-1.5 max-h-[200px] overflow-y-auto pr-1 scrollbar-thin">
-          <div className="grid grid-cols-2 gap-1.5">
+        <div className="max-h-[200px] overflow-y-auto pr-1 scrollbar-thin">
+          <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
             {filteredBrands.slice(0, 20).map((brand) => (
               <button
                 key={brand}
                 onClick={() => onChange({ ...filters, brand: filters.brand === brand ? '' : brand })}
-                className={`rounded-xl border px-2 py-1.5 text-xxs font-bold text-center truncate transition-all ${
+                className={`rounded-2xl border px-2 py-1.5 text-[10px] font-bold text-center truncate transition-all ${
                   filters.brand === brand
-                    ? 'border-[#0060a9] bg-indigo-50 text-indigo-700 font-black shadow-xs'
-                    : 'border-slate-100 bg-slate-50/50 text-slate-650 hover:border-slate-200 hover:text-slate-800'
+                    ? 'border-[#f11d2b] bg-[#f11d2b]/10 text-[#f11d2b]'
+                    : 'border-slate-200 bg-slate-50/80 text-slate-650 hover:border-slate-300 hover:text-slate-900'
                 }`}
               >
                 {brand}
@@ -119,56 +112,53 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({ filters, onChange,
         </div>
       </div>
 
-      {/* Price Range */}
-      <div className="border-t border-slate-50 pt-5">
-        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3.5">Price Range</h4>
-        <div className="flex items-center gap-2">
+      <div className="border-t border-slate-100 pt-4 sm:pt-5">
+        <h4 className="mb-3.5 text-xs font-black uppercase tracking-[0.2em] text-slate-400">Price Range</h4>
+        <div className="grid grid-cols-1 items-center gap-2 sm:grid-cols-[1fr_auto_1fr]">
           <input
             type="number"
             placeholder="Min"
             value={filters.priceMin || ''}
             onChange={(e) => handlePriceChange(e, 'priceMin')}
-            className="w-full rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-1.5 text-xs font-semibold text-slate-800 focus:border-indigo-500 focus:bg-white focus:outline-none"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-semibold text-slate-800 focus:border-[#1357d9] focus:bg-white focus:outline-none"
           />
-          <span className="text-slate-400 text-xs font-semibold">-</span>
+          <span className="hidden text-xs font-semibold text-slate-400 sm:block">-</span>
           <input
             type="number"
             placeholder="Max"
             value={filters.priceMax || ''}
             onChange={(e) => handlePriceChange(e, 'priceMax')}
-            className="w-full rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-1.5 text-xs font-semibold text-slate-800 focus:border-indigo-500 focus:bg-white focus:outline-none"
+            className="w-full rounded-2xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs font-semibold text-slate-800 focus:border-[#1357d9] focus:bg-white focus:outline-none"
           />
         </div>
       </div>
 
-      {/* Availability */}
-      <div className="border-t border-slate-50 pt-5">
-        <label className="flex items-center gap-2.5 cursor-pointer">
+      <div className="border-t border-slate-100 pt-4 sm:pt-5">
+        <label className="flex cursor-pointer items-center gap-2.5">
           <input
             type="checkbox"
             checked={filters.inStockOnly}
             onChange={handleStockChange}
-            className="h-4.5 w-4.5 rounded-md border-slate-200 text-indigo-600 focus:ring-indigo-500"
+            className="h-4.5 w-4.5 rounded-md border-slate-200 text-[#1357d9] focus:ring-[#1357d9]"
           />
           <span className="text-xs font-bold text-slate-700">In Stock Only</span>
         </label>
       </div>
 
-      {/* Rating */}
-      <div className="border-t border-slate-50 pt-5">
-        <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-400 mb-3">Customer Rating</h4>
+      <div className="border-t border-slate-100 pt-4 sm:pt-5">
+        <h4 className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-slate-400">Customer Rating</h4>
         <div className="space-y-1.5">
           {[5, 4, 3, 2, 1].map((stars) => (
             <button
               key={stars}
               onClick={() => handleRatingChange(stars)}
-              className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-xs font-semibold transition-all border ${
+              className={`flex w-full items-center gap-2 rounded-2xl border px-2.5 py-1.5 text-xs font-semibold transition-all ${
                 filters.minRating === stars
-                  ? 'bg-indigo-50 border-indigo-150 text-indigo-700 font-black'
+                  ? 'border-[#ffcb2f] bg-[#ffcb2f]/15 text-[#0b0d10]'
                   : 'border-transparent text-slate-600 hover:bg-slate-50'
               }`}
             >
-              <div className="flex text-amber-500">
+              <div className="flex text-[#f11d2b]">
                 {Array.from({ length: stars }).map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-current" />
                 ))}
@@ -181,7 +171,6 @@ export const ProductFilter: React.FC<ProductFilterProps> = ({ filters, onChange,
           ))}
         </div>
       </div>
-
     </div>
   );
 };

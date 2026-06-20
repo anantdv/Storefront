@@ -128,15 +128,15 @@ export const ProductDetails: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 animate-pulse space-y-8">
+      <div className="mx-auto max-w-7xl space-y-8 px-4 py-12 sm:px-6 lg:px-8 animate-pulse">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="aspect-square rounded-3xl bg-slate-150" />
+          <div className="aspect-square rounded-[1.75rem] bg-slate-200" />
           <div className="space-y-4">
-            <div className="h-4 w-1/4 rounded bg-slate-150" />
-            <div className="h-8 w-3/4 rounded bg-slate-150" />
-            <div className="h-6 w-1/3 rounded bg-slate-150" />
-            <div className="h-20 w-full rounded bg-slate-150" />
-            <div className="h-10 w-1/2 rounded bg-slate-150" />
+            <div className="h-4 w-1/4 rounded bg-slate-200" />
+            <div className="h-8 w-3/4 rounded bg-slate-200" />
+            <div className="h-6 w-1/3 rounded bg-slate-200" />
+            <div className="h-20 w-full rounded bg-slate-200" />
+            <div className="h-10 w-1/2 rounded bg-slate-200" />
           </div>
         </div>
       </div>
@@ -146,9 +146,9 @@ export const ProductDetails: React.FC = () => {
   if (!product) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-xl font-bold text-slate-800">Product Not Found</h2>
-        <p className="text-xs text-slate-400 mt-1">The product code you requested does not exist or has been disabled.</p>
-        <Link to="/catalog" className="mt-6 inline-block rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-indigo-700">
+        <h2 className="text-xl font-black text-slate-900">Product Not Found</h2>
+        <p className="mt-1 text-xs text-slate-500">The product code you requested does not exist or has been disabled.</p>
+        <Link to="/catalog" className="mt-6 inline-block rounded-full bg-[#0b0d10] px-5 py-2.5 text-xs font-black text-[#ffcb2f] hover:bg-[#1357d9]">
           Back to Catalog
         </Link>
       </div>
@@ -166,8 +166,31 @@ export const ProductDetails: React.FC = () => {
     navigate('/checkout');
   };
 
+  const sanitizeDescription = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('script, iframe, object, embed, link, meta').forEach((node) => node.remove());
+    doc.querySelectorAll('a').forEach((anchor) => {
+      const span = doc.createElement('span');
+      span.innerHTML = anchor.innerHTML;
+      anchor.replaceWith(span);
+    });
+    doc.querySelectorAll('*').forEach((node) => {
+      Array.from(node.attributes).forEach((attr) => {
+        const name = attr.name.toLowerCase();
+        const value = attr.value.trim().toLowerCase();
+        if (name.startsWith('on') || name === 'style') {
+          node.removeAttribute(attr.name);
+        }
+        if ((name === 'href' || name === 'src') && value.startsWith('javascript:')) {
+          node.removeAttribute(attr.name);
+        }
+      });
+    });
+    return doc.body.innerHTML;
+  };
+
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div className="mx-auto max-w-7xl space-y-12 px-4 py-8 sm:px-6 lg:px-8">
       
       {/* Product Detail Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
@@ -181,12 +204,12 @@ export const ProductDetails: React.FC = () => {
         <div className="space-y-6">
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-4">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-400 bg-slate-50 border border-slate-100 px-3 py-1 rounded-full">
+              <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.25em] text-slate-500">
                 {product.brand || 'Brand Brand'}
               </span>
-              <span className="text-xs font-semibold text-slate-450">SKU: {product.id}</span>
+              <span className="text-xs font-semibold text-slate-500">SKU: {product.id}</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight margin-0">{product.name}</h1>
+            <h1 className="text-3xl font-black leading-tight text-slate-900 sm:text-4xl margin-0">{product.name}</h1>
             
             {/* Rating Stars */}
             <div className="flex items-center gap-2 pt-1.5">
@@ -201,7 +224,7 @@ export const ProductDetails: React.FC = () => {
           </div>
 
           {/* Pricing Box */}
-          <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5 space-y-2">
+          <div className="rounded-[1.75rem] border border-black/10 bg-white p-5 space-y-2 shadow-sm">
             <div className="flex items-baseline gap-2">
               <span className="text-3xl font-black text-slate-900">{currency}{product.price.toFixed(2)}</span>
               {product.originalPrice && product.originalPrice > product.price && (
@@ -209,30 +232,30 @@ export const ProductDetails: React.FC = () => {
                   <span className="text-sm font-semibold text-slate-400 line-through">
                     {currency}{product.originalPrice.toFixed(2)}
                   </span>
-                  <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                  <span className="rounded-full bg-[#f11d2b]/10 px-2 py-0.5 text-xs font-black text-[#f11d2b]">
                     -{product.discount}% OFF
                   </span>
                 </>
               )}
             </div>
-            <p className="text-xxs font-semibold text-slate-400">Inclusive of all local sales taxes.</p>
+            <p className="text-xxs font-semibold text-slate-500">Inclusive of all local sales taxes.</p>
           </div>
 
           {/* Quantity selector & Actions */}
           <div className="space-y-4 pt-2">
             {product.stock > 0 ? (
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <div className="flex items-center rounded-2xl border border-slate-200 bg-slate-50/50 p-1 shrink-0 self-start">
+                <div className="flex shrink-0 self-start items-center rounded-2xl border border-black/10 bg-white p-1">
                   <button
                     onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl font-extrabold hover:bg-slate-100 text-slate-600"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl font-extrabold text-slate-600 hover:bg-slate-100"
                   >
                     -
                   </button>
                   <span className="w-10 text-center text-sm font-black text-slate-800">{quantity}</span>
                   <button
                     onClick={() => setQuantity(prev => Math.min(product.stock, prev + 1))}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl font-extrabold hover:bg-slate-100 text-slate-600"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl font-extrabold text-slate-600 hover:bg-slate-100"
                   >
                     +
                   </button>
@@ -241,30 +264,30 @@ export const ProductDetails: React.FC = () => {
                 <div className="flex flex-1 gap-3">
                   <button
                     onClick={handleAddToCart}
-                    className="flex-1 rounded-2xl border-2 border-indigo-600 bg-white hover:bg-indigo-50 text-indigo-600 py-3 text-sm font-black transition-colors flex items-center justify-center gap-2"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-2xl border-2 border-[#1357d9] bg-white py-3 text-sm font-black text-[#1357d9] transition-colors hover:bg-[#1357d9]/8"
                   >
                     <ShoppingCart className="h-4.5 w-4.5" />
                     Add to Cart
                   </button>
                   <button
                     onClick={handleBuyNow}
-                    className="flex-1 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white py-3 text-sm font-black transition-all shadow-md shadow-indigo-150"
+                    className="flex-1 rounded-2xl bg-gradient-to-r from-[#f11d2b] to-[#ffcb2f] py-3 text-sm font-black text-[#0b0d10] transition-all shadow-lg hover:opacity-95"
                   >
                     Buy Now
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="rounded-2xl bg-red-50/50 border border-red-100 p-4 text-center">
-                <p className="text-sm font-bold text-red-650">Out of Stock</p>
-                <p className="text-xs text-slate-400 mt-0.5">This item is currently unavailable. Please check back later.</p>
+              <div className="rounded-[1.75rem] border border-[#f11d2b]/20 bg-[#f11d2b]/8 p-4 text-center">
+                <p className="text-sm font-black text-[#f11d2b]">Out of Stock</p>
+                <p className="mt-0.5 text-xs text-slate-500">This item is currently unavailable. Please check back later.</p>
               </div>
             )}
 
             <button
               onClick={() => toggleWishlist(product)}
               className={`flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider py-1.5 transition-colors focus:outline-none ${
-                wishlisted ? 'text-rose-600' : 'text-slate-500 hover:text-rose-600'
+                wishlisted ? 'text-[#f11d2b]' : 'text-slate-500 hover:text-[#f11d2b]'
               }`}
             >
               <Heart className="h-4 w-4" fill={wishlisted ? 'currentColor' : 'none'} />
@@ -275,17 +298,17 @@ export const ProductDetails: React.FC = () => {
           {/* Shipping Features */}
           <div className="grid grid-cols-3 gap-4 border-t border-slate-100 pt-6">
             <div className="flex flex-col items-center text-center space-y-1">
-              <Truck className="h-5 w-5 text-indigo-500" />
+              <Truck className="h-5 w-5 text-[#1357d9]" />
               <span className="text-xxs font-black text-slate-800">Free Shipping</span>
               <span className="text-4xs text-slate-400 font-bold uppercase">Orders over {currency}50</span>
             </div>
             <div className="flex flex-col items-center text-center space-y-1">
-              <RotateCcw className="h-5 w-5 text-indigo-500" />
+              <RotateCcw className="h-5 w-5 text-[#1357d9]" />
               <span className="text-xxs font-black text-slate-800">Easy Returns</span>
               <span className="text-4xs text-slate-400 font-bold uppercase">30-day window</span>
             </div>
             <div className="flex flex-col items-center text-center space-y-1">
-              <Shield className="h-5 w-5 text-indigo-500" />
+              <Shield className="h-5 w-5 text-[#1357d9]" />
               <span className="text-xxs font-black text-slate-800">Secure Checkout</span>
               <span className="text-4xs text-slate-400 font-bold uppercase">Stripe, Razorpay</span>
             </div>
@@ -318,7 +341,7 @@ export const ProductDetails: React.FC = () => {
           {activeTab === 'details' && (
             <div 
               className="max-w-3xl prose prose-base text-base sm:text-lg text-slate-600 font-medium leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: product.description || 'No detailed description specified in ERPNext Item document.' }}
+              dangerouslySetInnerHTML={{ __html: sanitizeDescription(product.description || 'No detailed description specified in ERPNext Item document.') }}
             />
           )}
 

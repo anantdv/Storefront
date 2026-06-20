@@ -113,6 +113,10 @@ export const Checkout: React.FC = () => {
     }
   };
 
+  const handleHirePurchase = () => {
+    navigate(`/hire-purchase?loanAmount=${Math.round(totals.total)}`);
+  };
+
   const handlePrevStep = () => {
     setStep(prev => Math.max(1, prev - 1));
   };
@@ -227,12 +231,20 @@ export const Checkout: React.FC = () => {
               </div>
               {errors.general && <p className="text-xxs font-bold text-red-500">{errors.general}</p>}
               
-              <button
-                onClick={handleNextStep}
-                className="mt-6 w-full rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white py-3 text-xs font-black transition-colors"
-              >
-                Proceed to Shipping Address
-              </button>
+              <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+                <button
+                  onClick={handleNextStep}
+                  className="rounded-2xl bg-indigo-600 px-4 py-2.5 text-[11px] font-black text-white transition-colors hover:bg-indigo-700 sm:flex-1"
+                >
+                  Proceed to Shipping Address
+                </button>
+                <button
+                  onClick={handleHirePurchase}
+                  className="rounded-2xl border border-[#ffcb2f] bg-[#0b0d10] px-4 py-2.5 text-[11px] font-black text-[#ffcb2f] transition-colors hover:bg-[#1357d9] hover:text-white sm:flex-1"
+                >
+                  Hire Purchase
+                </button>
+              </div>
             </div>
           )}
 

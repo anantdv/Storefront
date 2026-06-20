@@ -70,10 +70,10 @@ export const StoreLocator: React.FC = () => {
     <div className="w-full px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto space-y-8">
       {/* Title */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight leading-none margin-0">
+        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none margin-0">
           Store & Warehouse Locator
         </h1>
-        <p className="text-xs font-semibold text-slate-400 mt-1.5 uppercase tracking-wide">
+        <p className="mt-1.5 text-xs font-semibold uppercase tracking-wide text-white/70">
           Courts PNG Physical Outlets, Warehouse Hubs, and Retail Showrooms
         </p>
       </div>

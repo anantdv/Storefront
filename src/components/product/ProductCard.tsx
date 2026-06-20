@@ -30,10 +30,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const wishlisted = isInWishlist(product.id);
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xxs transition-all duration-300 hover:-translate-y-1 hover:border-indigo-100 hover:shadow-lg hover:shadow-slate-100/50">
-      
-      {/* Product Image & Badges */}
-      <Link to={`/product/${product.id}`} className="relative block aspect-square w-full overflow-hidden bg-slate-50">
+    <div className="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-black/10 bg-white shadow-[0_18px_40px_rgba(11,13,16,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#1357d9]/25">
+      <div className="h-1 bg-gradient-to-r from-[#f11d2b] via-[#ffcb2f] to-[#1357d9]" />
+
+      <Link to={`/product/${product.id}`} className="relative block aspect-square w-full overflow-hidden bg-[#f4f5f7]">
         <img
           src={product.image}
           alt={product.name}
@@ -41,82 +41,72 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           loading="lazy"
         />
 
-        {/* Discount Badge */}
         {product.discount && product.discount > 0 && (
-          <div className="absolute top-4 left-4 rounded-xl bg-red-500 px-2.5 py-1 text-xxs font-bold text-white shadow-sm shadow-red-200">
+          <div className="absolute left-4 top-4 rounded-full bg-[#0b0d10] px-3 py-1 text-[10px] font-black tracking-[0.2em] text-[#ffcb2f] shadow-lg">
             -{product.discount}% OFF
           </div>
         )}
 
-        {/* Wishlist Heart Overlay */}
         <button
           onClick={handleWishlistClick}
-          className={`absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur-xs transition-colors hover:bg-white hover:text-rose-500 focus:outline-none ${
-            wishlisted ? 'text-rose-500' : 'text-slate-400'
+          className={`absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/90 shadow-sm backdrop-blur-xs transition-colors hover:bg-white hover:text-[#f11d2b] focus:outline-none ${
+            wishlisted ? 'text-[#f11d2b]' : 'text-slate-400'
           }`}
           aria-label="Add to wishlist"
         >
           <Heart className="h-5 w-5" fill={wishlisted ? 'currentColor' : 'none'} />
         </button>
 
-        {/* Out of Stock Overlay */}
         {product.stock <= 0 && (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs">
-            <span className="rounded-xl bg-white px-4 py-2 text-xs font-extrabold tracking-wider text-slate-800 uppercase shadow-md">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#0b0d10]/55 backdrop-blur-xs">
+            <span className="rounded-full bg-white px-4 py-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#0b0d10] shadow-md">
               Out Of Stock
             </span>
           </div>
         )}
       </Link>
 
-      {/* Card Info */}
-      <div className="flex flex-1 flex-col p-3">
+      <div className="flex flex-1 flex-col p-4">
         <div className="flex-1">
-          {/* Item Group & Stock Status */}
-          <div className="flex items-center justify-between gap-1.5 mb-1">
-            <span className="text-3xs font-extrabold uppercase tracking-wider text-indigo-600 truncate max-w-[80px]" title={product.category}>
+          <div className="mb-2 flex items-center justify-between gap-1.5">
+            <span className="max-w-[80px] truncate text-[10px] font-black uppercase tracking-[0.25em] text-[#1357d9]" title={product.category}>
               {product.category || 'General'}
             </span>
             {product.stock > 0 && product.stock <= 5 && (
-              <span className="text-3xs font-extrabold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-sm animate-pulse">
-                {product.stock} Left!
+              <span className="rounded-full bg-[#ffcb2f]/20 px-2 py-0.5 text-[10px] font-black text-[#0b0d10]">
+                {product.stock} Left
               </span>
             )}
             {product.stock > 5 && (
-              <span className="text-3xs font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-sm">
+              <span className="rounded-full bg-[#1357d9]/10 px-2 py-0.5 text-[10px] font-bold text-[#1357d9]">
                 In Stock
               </span>
             )}
           </div>
 
-          {/* Product Name */}
           <Link to={`/product/${product.id}`} className="block">
-            <h3 className="line-clamp-2 text-sm sm:text-base font-black text-slate-800 group-hover:text-indigo-600 transition-colors h-10 leading-tight">
+            <h3 className="h-10 text-sm font-black leading-tight text-slate-900 transition-colors group-hover:text-[#f11d2b] sm:text-base line-clamp-2">
               {product.name}
             </h3>
           </Link>
 
-          {/* Rating */}
-          <div className="flex items-center gap-1 mt-1.5">
-            <div className="flex items-center gap-0.5 rounded-md bg-amber-50 px-1 py-0.5">
-              <Star className="h-2.5 w-2.5 text-amber-500 fill-amber-500" />
-              <span className="text-3xs font-black text-amber-700">{product.rating}</span>
+          <div className="mt-1.5 flex items-center gap-1">
+            <div className="flex items-center gap-0.5 rounded-full bg-[#ffcb2f]/15 px-2 py-0.5">
+              <Star className="h-2.5 w-2.5 fill-current text-[#f11d2b]" />
+              <span className="text-[10px] font-black text-[#0b0d10]">{product.rating}</span>
             </div>
-            <span className="text-3xs font-semibold text-slate-400">
-              ({product.reviewCount})
-            </span>
+            <span className="text-[10px] font-semibold text-slate-400">({product.reviewCount})</span>
           </div>
         </div>
 
-        {/* Pricing & Add to Cart Action */}
-        <div className="mt-2.5 flex items-center justify-between gap-1.5 pt-2 border-t border-slate-50">
+        <div className="mt-3 flex items-center justify-between gap-1.5 border-t border-slate-100 pt-3">
           <div>
             <div className="flex items-baseline gap-1">
-              <span className="text-sm font-extrabold text-slate-900">
+              <span className="text-sm font-black text-slate-900">
                 {currency}{product.price.toFixed(2)}
               </span>
               {product.originalPrice && product.originalPrice > product.price && (
-                <span className="text-3xs font-semibold text-slate-400 line-through">
+                <span className="text-[10px] font-semibold text-slate-400 line-through">
                   {currency}{product.originalPrice.toFixed(2)}
                 </span>
               )}
@@ -126,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.stock > 0 && (
             <button
               onClick={handleAddToCart}
-              className="flex h-7.5 w-7.5 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 transition-all hover:bg-indigo-600 hover:text-white"
+              className="flex h-8 w-8 items-center justify-center rounded-2xl bg-[#0b0d10] text-[#ffcb2f] transition-all hover:bg-[#1357d9] hover:text-white"
               title="Add to Cart"
             >
               <ShoppingCart className="h-3.5 w-3.5" />
@@ -134,7 +124,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
       </div>
-
     </div>
   );
 };

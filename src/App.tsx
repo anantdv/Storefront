@@ -20,20 +20,15 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800">
-      {/* Sticky header */}
+    <div className="flex min-h-screen flex-col market-shell text-slate-800">
       <Navbar onToggleMobileMenu={() => setMobileMenuOpen(true)} />
 
-      {/* Side navigation drawer for smaller viewports */}
       <MobileNav isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
-      {/* Global Auth Modal — triggered by Cart / Checkout login guard */}
       <AuthModal />
 
-      {/* Movable AI chat assistant floating widget */}
       <AIChatWidget />
 
-      {/* Primary body contents */}
       <main className="flex-1 w-full">
         <Routes>
           <Route path="/" element={<Home />} />

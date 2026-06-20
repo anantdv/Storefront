@@ -147,34 +147,34 @@ export const Catalog: React.FC = () => {
     : products.slice((currentPage - 1) * 24, currentPage * 24);
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
+    <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
       {/* Breadcrumb / Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight leading-none margin-0">
+      <div className="mb-6 flex flex-col gap-4 md:mb-8 md:flex-row md:items-center md:justify-between">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-black leading-none tracking-tight text-white sm:text-3xl">
             {filters.category ? `${filters.category.charAt(0).toUpperCase()}${filters.category.slice(1)} Products` : 'All Shop Products'}
           </h1>
-          <p className="text-xs font-semibold text-slate-400 mt-1">
+          <p className="mt-1 text-xs font-semibold text-white/70">
             Showing {products.length} products found
           </p>
         </div>
 
         {/* Sort & Mobile Filters Trigger */}
-        <div className="flex items-center gap-3">
+        <div className="grid gap-3 sm:grid-cols-[auto,1fr] md:flex md:items-center">
           <button
             onClick={() => setShowMobileFilters(!showMobileFilters)}
-            className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4.5 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 md:hidden"
+            className="flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-black text-slate-800 shadow-sm hover:bg-[#ffcb2f]/10 md:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" />
             Filters
           </button>
 
-          <div className="flex items-center gap-2 bg-white rounded-xl border border-slate-200 px-3.5 py-1.5">
-            <span className="text-xxs font-extrabold text-slate-400 uppercase">Sort By:</span>
+          <div className="flex items-center justify-between gap-2 rounded-full border border-black/10 bg-white px-3.5 py-1.5 shadow-sm">
+            <span className="text-xxs font-black uppercase text-slate-500">Sort By:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="text-xs font-bold text-slate-700 bg-transparent border-none outline-none cursor-pointer focus:ring-0"
+              className="min-w-0 cursor-pointer border-none bg-transparent text-xs font-bold text-slate-800 outline-none focus:ring-0"
             >
               <option value="popularity">Popularity</option>
               <option value="price-low-high">Price: Low to High</option>
@@ -186,9 +186,9 @@ export const Catalog: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex gap-8 items-start">
+      <div className="flex flex-col gap-6 md:flex-row md:items-start lg:gap-8">
         {/* Sidebar Filters Desktop */}
-        <aside className="w-64 shrink-0 hidden md:block">
+        <aside className="hidden w-72 shrink-0 md:block">
           <ProductFilter
             filters={filters}
             onChange={(newFilters) => {
@@ -204,11 +204,11 @@ export const Catalog: React.FC = () => {
         {/* Mobile Filters Drawer */}
         {showMobileFilters && (
           <div className="fixed inset-0 z-50 flex md:hidden animate-in fade-in duration-200">
-            <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowMobileFilters(false)} />
-            <div className="relative flex w-full max-w-xs flex-col bg-white p-5 shadow-xl overflow-y-auto animate-in slide-in-from-left duration-300">
-              <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                <h3 className="font-extrabold text-sm text-slate-800 uppercase">Filters</h3>
-                <button onClick={() => setShowMobileFilters(false)} className="rounded-lg p-1 hover:bg-slate-50 font-bold text-slate-400">Close</button>
+            <div className="fixed inset-0 bg-[#090b10]/75 backdrop-blur-sm" onClick={() => setShowMobileFilters(false)} />
+            <div className="relative flex h-full w-full flex-col overflow-y-auto bg-white p-4 shadow-2xl animate-in slide-in-from-bottom duration-300">
+              <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-4">
+                <h3 className="text-sm font-black uppercase tracking-[0.25em] text-slate-900">Filters</h3>
+                <button onClick={() => setShowMobileFilters(false)} className="rounded-full px-3 py-1.5 text-xs font-black text-slate-500 hover:bg-slate-50">Close</button>
               </div>
               <ProductFilter
                 filters={filters}
@@ -227,10 +227,10 @@ export const Catalog: React.FC = () => {
         {/* Product Grid Area */}
         <main className="flex-1">
           {error ? (
-            <div className="text-center py-16 rounded-3xl bg-rose-50 border border-rose-100 p-8">
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-rose-100 text-rose-650 mb-4 font-black">!</div>
-              <h3 className="text-base font-bold text-slate-800">Connection Error</h3>
-              <p className="text-xs text-rose-600 font-semibold mt-2 max-w-md mx-auto bg-white/60 p-3.5 rounded-xl border border-rose-100">
+            <div className="rounded-[1.75rem] border border-[#f11d2b]/20 bg-[#f11d2b]/8 p-8 text-center">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f11d2b]/20 font-black text-[#f11d2b]">!</div>
+              <h3 className="text-base font-black text-slate-900">Connection Error</h3>
+              <p className="mx-auto mt-2 max-w-md rounded-2xl border border-[#f11d2b]/15 bg-white/70 p-3.5 text-xs font-semibold text-slate-700">
                 {error}
               </p>
               <button
@@ -238,7 +238,7 @@ export const Catalog: React.FC = () => {
                   setError(null);
                   setFilters(prev => ({ ...prev }));
                 }}
-                className="mt-6 rounded-xl bg-slate-900 hover:bg-slate-800 px-5 py-2.5 text-xs font-bold text-white transition-colors"
+                className="mt-6 rounded-full bg-[#0b0d10] px-5 py-2.5 text-xs font-black text-[#ffcb2f] transition-colors hover:bg-[#1357d9]"
               >
                 Retry Request
               </button>
@@ -246,34 +246,34 @@ export const Catalog: React.FC = () => {
           ) : loading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="animate-pulse rounded-3xl border border-slate-100 bg-white p-5 space-y-4">
-                  <div className="aspect-square w-full rounded-2xl bg-slate-150" />
-                  <div className="h-4 w-2/3 rounded-md bg-slate-150" />
-                  <div className="h-3 w-1/2 rounded-md bg-slate-150" />
+                <div key={i} className="space-y-4 rounded-[1.75rem] border border-black/10 bg-white p-5 animate-pulse">
+                  <div className="aspect-square w-full rounded-2xl bg-slate-200" />
+                  <div className="h-4 w-2/3 rounded-md bg-slate-200" />
+                  <div className="h-3 w-1/2 rounded-md bg-slate-200" />
                   <div className="flex items-center justify-between pt-3">
-                    <div className="h-4 w-1/3 rounded-md bg-slate-150" />
-                    <div className="h-8 w-8 rounded-xl bg-slate-150" />
+                    <div className="h-4 w-1/3 rounded-md bg-slate-200" />
+                    <div className="h-8 w-8 rounded-xl bg-slate-200" />
                   </div>
                 </div>
               ))}
             </div>
           ) : products.length === 0 ? (
-            <div className="text-center py-20 rounded-3xl bg-white border border-slate-100 p-8">
-              <SlidersHorizontal className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-base font-bold text-slate-700">No products match your filters</h3>
-              <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">
+            <div className="rounded-[1.75rem] border border-black/10 bg-white p-8 text-center">
+              <SlidersHorizontal className="mx-auto mb-4 h-12 w-12 text-slate-300" />
+              <h3 className="text-base font-black text-slate-900">No products match your filters</h3>
+              <p className="mx-auto mt-1 max-w-xs text-xs text-slate-500">
                 Try widening your price filters, selecting a different category, or resetting all criteria.
               </p>
               <button
                 onClick={handleClearFilters}
-                className="mt-6 rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-indigo-700 transition-colors"
+                className="mt-6 rounded-full bg-[#1357d9] px-5 py-2.5 text-xs font-black text-white transition-colors hover:bg-[#f11d2b]"
               >
                 Reset All Filters
               </button>
             </div>
           ) : (
             <div className="space-y-8">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 {paginatedProducts.map((prod) => (
                   <ProductCard key={prod.id} product={prod} />
                 ))}
@@ -281,7 +281,7 @@ export const Catalog: React.FC = () => {
               
               {/* Pagination controls */}
               {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-1.5 pt-6 border-t border-slate-100">
+                <div className="flex flex-wrap items-center justify-center gap-1.5 border-t border-slate-100 pt-6">
                   <button
                     disabled={currentPage === 1}
                     onClick={() => {
@@ -301,7 +301,7 @@ export const Catalog: React.FC = () => {
                       }}
                       className={`h-7.5 w-7.5 rounded-lg text-xs font-bold transition-all ${
                         currentPage === idx + 1
-                          ? 'bg-indigo-600 text-white font-black'
+                          ? 'bg-[#0b0d10] text-[#ffcb2f] font-black'
                           : 'border border-slate-200 bg-white text-slate-650 hover:bg-slate-50'
                       }`}
                     >

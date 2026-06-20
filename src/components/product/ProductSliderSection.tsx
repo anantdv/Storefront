@@ -27,22 +27,22 @@ export const ProductSliderSection: React.FC<ProductSliderSectionProps> = ({ titl
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div className="flex items-center justify-between border-b border-black/10 pb-3">
         <div className="flex items-center gap-2">
           {icon}
-          <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">{title}</h2>
+          <h2 className="text-xl font-black tracking-tight text-slate-900 sm:text-2xl">{title}</h2>
         </div>
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => scroll('left')}
-            className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors shadow-xxs focus:outline-none"
+            className="rounded-2xl border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition-colors hover:bg-[#ffcb2f]/15 focus:outline-none"
             aria-label="Previous items"
           >
             <ChevronLeft className="h-4.5 w-4.5" />
           </button>
           <button
             onClick={() => scroll('right')}
-            className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors shadow-xxs focus:outline-none"
+            className="rounded-2xl border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition-colors hover:bg-[#ffcb2f]/15 focus:outline-none"
             aria-label="Next items"
           >
             <ChevronRight className="h-4.5 w-4.5" />

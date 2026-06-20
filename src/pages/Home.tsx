@@ -119,35 +119,35 @@ export const Home: React.FC = () => {
   const [activeBanner, setActiveBanner] = useState(0);
   const banners = [
     {
-      title: "Xiaomi 14 Ultra",
-      subtitle: "CO-ENGINEERED WITH LEICA",
-      tagline: "Far. Better.",
-      description: "Segment's only Leica 5x Periscope Zoom lens. Professional-grade quad camera setup.",
-      cta: "Pre-book Now",
-      link: "/catalog?search=xiaomi",
-      bg: "bg-[#0b0312]",
-      img: getAssetUrl('/xiaomi_banner.png'),
-      isXiaomi: true
+      title: "Signal Stack",
+      subtitle: "LIVE ERPNEXT CATALOG",
+      tagline: "Fast. Distinct. Built for commerce.",
+      description: "A bold storefront for live inventory, pricing, and order flows without the usual marketplace look.",
+      cta: "Browse the Catalog",
+      link: "/catalog",
+      bg: "bg-[#0b0d10]",
+      img: getAssetUrl('/hero.png'),
+      isXiaomi: false
     },
     {
-      title: 'Your ICT Solutions Partner',
-      subtitle: 'Daltron Network & ISP Services',
-      tagline: 'Connect. Grow.',
-      description: 'Meet your business ICT needs with faster, custom-tailored internet and hardware setups built for your budget.',
-      cta: 'Shop Tech & Hardware',
-      link: '/catalog?category=mobiles-&-tabs',
-      bg: 'bg-[#1a0f0f]',
+      title: 'Black & Blue Supply Rail',
+      subtitle: 'CATEGORIES WITH PUNCH',
+      tagline: 'Curated. Sharp. Clear.',
+      description: 'Shop categories, track deals, and move between product families through a cleaner navigation system.',
+      cta: 'Explore Categories',
+      link: '/catalog',
+      bg: 'bg-[#10131a]',
       img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
       isXiaomi: false
     },
     {
-      title: 'Digital Banking Partnerships',
-      subtitle: 'Kina Bank Corporate Online',
-      tagline: 'Simple. Secure.',
-      description: 'Power your business with PNG\'s first digital bank. Simple, secure, and fast commercial banking integration.',
-      cta: 'Explore Platform',
+      title: 'Finance Without Friction',
+      subtitle: 'HIRE PURCHASE READY',
+      tagline: 'Plan. Pay. Proceed.',
+      description: 'Keep the ERPNext commerce backbone and pair it with a stronger, more editorial storefront identity.',
+      cta: 'See Finance Options',
       link: '/catalog',
-      bg: 'bg-[#0b1b33]',
+      bg: 'bg-[#0f1d3a]',
       img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80',
       isXiaomi: false
     }
@@ -244,12 +244,12 @@ export const Home: React.FC = () => {
   return (
     <div className="space-y-6 pb-16">
       
-      <div className="w-full bg-[#131b35] border-b border-[#1c264a] py-3.5 px-4 sm:px-6 lg:px-8 overflow-x-auto whitespace-nowrap scrollbar-none shadow-md" ref={topCategoryScrollRef}>
-        <div className="max-w-7xl mx-auto px-4 flex justify-start md:justify-center items-center gap-6 text-xs sm:text-sm font-black text-slate-100 tracking-wide uppercase">
+      <div className="market-panel mx-4 overflow-x-auto whitespace-nowrap border-white/10 px-4 py-3.5 shadow-lg sm:mx-6 lg:mx-8" ref={topCategoryScrollRef}>
+        <div className="mx-auto flex max-w-7xl items-center justify-start gap-6 px-4 text-xs font-black uppercase tracking-[0.25em] text-white/90 sm:text-sm md:justify-center">
           {categories.map((cat) => {
             const categorySlug = cat.name.toLowerCase().replace(/\s+/g, '-');
             return (
-              <Link key={cat.id} to={`/catalog?category=${categorySlug}`} className="hover:text-[#fcd34d] transition-colors">
+              <Link key={cat.id} to={`/catalog?category=${categorySlug}`} className="transition-colors hover:text-[#ffcb2f]">
                 {cat.name}
               </Link>
             );
@@ -258,44 +258,29 @@ export const Home: React.FC = () => {
       </div>
 
       {/* Main Banner Carousel - Height increased by 10% more */}
-      <section className="relative overflow-hidden rounded-3xl mx-4 sm:mx-6 lg:mx-8 shadow-sm group">
-        <div className={`relative flex flex-col md:flex-row items-center justify-between min-h-[245px] sm:min-h-[310px] ${banners[activeBanner].bg} p-6 sm:p-8 gap-6 transition-all duration-700`}>
+      <section className="relative group mx-4 overflow-hidden rounded-[2rem] border border-black/10 shadow-[0_24px_60px_rgba(11,13,16,0.14)] sm:mx-6 lg:mx-8">
+        <div className={`relative flex min-h-[245px] flex-col items-center justify-between gap-6 p-6 transition-all duration-700 md:flex-row sm:min-h-[310px] ${banners[activeBanner].bg}`}>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,203,47,0.14),_transparent_30%),radial-gradient(circle_at_bottom_left,_rgba(241,29,43,0.15),_transparent_30%)]" />
           
           {/* Text Left side */}
-          <div className="flex-1 space-y-4 max-w-xl z-10 text-white">
-            {banners[activeBanner].isXiaomi ? (
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl sm:text-3xl font-black tracking-tight font-sans">xiaomi</span>
-                  <span className="text-sm sm:text-base font-light text-slate-350 border border-slate-600 px-2 py-0.5 rounded-md">14 Ultra</span>
-                </div>
-                <div className="flex items-center gap-2 text-[10px] font-extrabold tracking-widest text-slate-400">
-                  <span>CO-ENGINEERED WITH</span>
-                  <span className="bg-red-600 text-white font-black text-[8px] px-1.5 py-0.5 rounded-full">Leica</span>
-                </div>
-                <h1 className="text-xl sm:text-3xl font-black tracking-tight leading-tight mt-1">
-                  <span className="text-rose-500 font-serif font-light">{banners[activeBanner].tagline} </span>
-                  {banners[activeBanner].description}
-                </h1>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-550/20 border border-indigo-400/30 px-2.5 py-0.5 text-[10px] font-bold text-indigo-300">
-                  <Sparkles className="h-3 w-3" /> {banners[activeBanner].subtitle}
-                </span>
-                <h1 className="text-xl sm:text-3xl font-black tracking-tight leading-none">
-                  {banners[activeBanner].title}
-                </h1>
-                <p className="text-xs sm:text-sm text-slate-300 font-medium">
-                  {banners[activeBanner].description}
-                </p>
-              </div>
-            )}
+          <div className="relative z-10 flex-1 max-w-xl space-y-4 text-white">
+            <div className="space-y-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/8 px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em] text-[#ffcb2f]">
+                <Sparkles className="h-3 w-3" /> {banners[activeBanner].subtitle}
+              </span>
+              <h1 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
+                {banners[activeBanner].title}
+              </h1>
+              <p className="max-w-lg text-sm font-medium text-white/75 sm:text-base">
+                <span className="font-black text-[#ffcb2f]">{banners[activeBanner].tagline} </span>
+                {banners[activeBanner].description}
+              </p>
+            </div>
 
             <div className="pt-1">
               <Link
                 to={banners[activeBanner].link}
-                className="inline-flex items-center justify-center rounded-xl bg-white text-slate-955 px-5 py-2.5 text-[10px] font-black shadow-lg hover:bg-slate-100 transition-all hover:scale-102 uppercase tracking-wider"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#f11d2b] to-[#ffcb2f] px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.25em] text-[#0b0d10] shadow-lg transition-all hover:scale-[1.02]"
               >
                 {banners[activeBanner].cta}
               </Link>
@@ -303,11 +288,11 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Image Right side */}
-          <div className="flex-1 w-full md:max-w-md aspect-video sm:aspect-square overflow-hidden rounded-2xl relative h-[185px] sm:h-[250px]">
+          <div className="relative z-10 h-[185px] w-full overflow-hidden rounded-[1.75rem] border border-white/10 md:max-w-md sm:aspect-square sm:h-[250px]">
             <img 
               src={banners[activeBanner].img} 
               alt={banners[activeBanner].title} 
-              className="h-full w-full object-cover animate-in fade-in zoom-in-95 duration-500 rounded-2xl"
+              className="h-full w-full rounded-[1.75rem] object-cover animate-in fade-in zoom-in-95 duration-500"
             />
           </div>
         </div>
@@ -315,21 +300,21 @@ export const Home: React.FC = () => {
         {/* Carousel controls - Chevron Left & Right */}
         <button
           onClick={handlePrevBanner}
-          className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white rounded-full p-2 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-all focus:outline-none z-20"
+          className="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-2 text-white opacity-0 backdrop-blur-xs transition-all group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-4.5 w-4.5" />
         </button>
         <button
           onClick={handleNextBanner}
-          className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/60 text-white rounded-full p-2 backdrop-blur-xs opacity-0 group-hover:opacity-100 transition-all focus:outline-none z-20"
+          className="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/10 bg-black/45 p-2 text-white opacity-0 backdrop-blur-xs transition-all group-hover:opacity-100 hover:bg-black/70 focus:outline-none"
           aria-label="Next slide"
         >
           <ChevronRight className="h-4.5 w-4.5" />
         </button>
 
         {/* Carousel indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
           {banners.map((_, i) => (
             <button
               key={i}
@@ -340,291 +325,225 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Grid below Hero Banner: Flash Deals + Bank Cards */}
       <section className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
-          
-          {/* Flash Deals Card (placed next to bank offers) */}
-          {currentFlash && (
-            <div className="lg:col-span-1 rounded-3xl border border-rose-100 bg-rose-50/25 p-5 flex flex-col justify-between shadow-3xs">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-rose-600">
-                    <Percent className="h-4 w-4 animate-bounce" />
-                    <span className="text-[10px] font-black uppercase tracking-wider">Flash Deal of the Day</span>
-                  </div>
-                  <span className="rounded-lg bg-slate-900 px-2 py-1 font-mono text-[10px] font-bold text-white tracking-widest">
-                    {formatTime(timeLeft)}
-                  </span>
+        <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="market-panel overflow-hidden rounded-[2rem] p-6 text-white shadow-[0_24px_60px_rgba(11,13,16,0.16)] sm:p-8">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="market-badge rounded-full px-3 py-1 text-[10px] font-black">ERPNext live</span>
+              <span className="rounded-full border border-white/10 bg-white/8 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-white/70">
+                Distinct commerce shell
+              </span>
+            </div>
+
+            <div className="mt-5 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+              <div className="space-y-4">
+                <h2 className="max-w-xl text-3xl font-black leading-tight tracking-tight sm:text-4xl">
+                  A storefront that feels curated, not cloned.
+                </h2>
+                <p className="max-w-lg text-sm leading-6 text-white/75 sm:text-base">
+                  We kept ERPNext inventory, pricing, and ordering exactly as-is, then rebuilt the presentation with a darker editorial rhythm, sharper card shapes, and a stronger color story.
+                </p>
+
+                <div className="grid grid-cols-3 gap-3 pt-2">
+                  {[
+                    { label: 'Products', value: allProducts.length },
+                    { label: 'Categories', value: categories.length },
+                    { label: 'Brands', value: brands.length },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                      <div className="text-2xl font-black text-[#ffcb2f]">{item.value}</div>
+                      <div className="mt-1 text-[10px] font-black uppercase tracking-[0.25em] text-white/60">{item.label}</div>
+                    </div>
+                  ))}
                 </div>
-                
-                <div className="flex items-center gap-4 pt-2">
-                  <img src={currentFlash.image} alt={currentFlash.name} className="h-16 w-16 object-cover rounded-xl shrink-0 bg-white border border-slate-100" />
+
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Link
+                    to="/catalog"
+                    className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#f11d2b] to-[#ffcb2f] px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.25em] text-[#0b0d10] shadow-lg transition-transform hover:scale-[1.02]"
+                  >
+                    Browse catalog
+                  </Link>
+                  <Link
+                    to="/hire-purchase"
+                    className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/8 px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.25em] text-white transition-colors hover:bg-white/12"
+                  >
+                    Finance options
+                  </Link>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="rounded-[1.75rem] border border-white/10 bg-white/8 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/55">Featured pulse</p>
+                      <h3 className="mt-1 text-xl font-black text-white">Live deal timer</h3>
+                    </div>
+                    <span className="rounded-full bg-[#ffcb2f] px-3 py-1 text-[10px] font-black text-[#0b0d10]">
+                      {formatTime(timeLeft)}
+                    </span>
+                  </div>
+                  {currentFlash && (
+                    <div className="mt-4 flex items-center gap-4">
+                      <img src={currentFlash.image} alt={currentFlash.name} className="h-24 w-24 rounded-[1.25rem] object-cover shadow-lg" />
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#ffcb2f]">Current spotlight</p>
+                        <h4 className="mt-1 truncate text-base font-black text-white">{currentFlash.name}</h4>
+                        <p className="mt-1 text-sm text-white/70">
+                          From {currency}
+                          {(currentFlash.price * 0.9).toFixed(2)}
+                        </p>
+                        <Link to={`/product/${currentFlash.id}`} className="mt-3 inline-flex text-[10px] font-black uppercase tracking-[0.25em] text-[#ffcb2f]">
+                          View spotlight
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label: 'Top rating', value: '4.5+', tone: 'text-[#ffcb2f]' },
+                    { label: 'ERPNext sync', value: 'Live', tone: 'text-[#f11d2b]' },
+                    { label: 'Responsive', value: 'Yes', tone: 'text-[#1357d9]' },
+                    { label: 'Secure login', value: 'Cookie session', tone: 'text-white' },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/8 p-4">
+                      <div className={`text-xl font-black ${item.tone}`}>{item.value}</div>
+                      <div className="mt-1 text-[10px] font-black uppercase tracking-[0.25em] text-white/60">{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <div className="market-panel-light rounded-[1.75rem] p-5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500">Featured story</p>
+                  <h3 className="mt-1 text-xl font-black text-slate-900">One product, full focus</h3>
+                </div>
+                <Sparkles className="h-5 w-5 text-[#f11d2b]" />
+              </div>
+              {featuredProducts[0] && (
+                <button
+                  onClick={() => navigate(`/product/${featuredProducts[0].id}`)}
+                  className="mt-4 flex w-full items-center gap-4 rounded-[1.5rem] border border-black/10 bg-white p-3 text-left transition-transform hover:-translate-y-0.5"
+                >
+                  <img src={featuredProducts[0].image} alt={featuredProducts[0].name} className="h-24 w-24 rounded-[1.25rem] object-cover" />
                   <div className="min-w-0">
-                    <h3 className="text-sm sm:text-base font-extrabold text-slate-850 truncate">{currentFlash.name}</h3>
-                    <div className="flex items-baseline gap-1.5 mt-1">
-                      <span className="text-sm font-black text-slate-900">{currency}{(currentFlash.price * 0.9).toFixed(2)}</span>
-                      <span className="text-[10px] font-semibold text-slate-400 line-through">{currency}{currentFlash.price.toFixed(2)}</span>
-                    </div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#1357d9]">Featured product</p>
+                    <h4 className="mt-1 line-clamp-2 text-base font-black text-slate-900">{featuredProducts[0].name}</h4>
+                    <p className="mt-1 text-sm font-bold text-slate-600">
+                      {currency}
+                      {featuredProducts[0].price.toFixed(2)}
+                    </p>
                   </div>
-                </div>
-              </div>
+                </button>
+              )}
+            </div>
 
-              <Link
-                to={`/product/${currentFlash.id}`}
-                className="mt-4 inline-flex items-center justify-center w-full rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold py-2 transition-colors uppercase tracking-wider"
-              >
-                Grab Deal
-              </Link>
-            </div>
-          )}
-
-          {/* Bank Cards Grid */}
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {/* Card 1: OneCard */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-4.5 flex items-center gap-3.5 shadow-3xs">
-              <div className="bg-slate-900 text-white text-[10px] font-black tracking-tighter px-2 py-1.5 rounded-lg shrink-0">one</div>
-              <div className="min-w-0">
-                <p className="text-xxs text-slate-800 font-extrabold leading-snug">Get Upto Rs. 20,000 Instant Discount on OneCard Credit EMI</p>
-                <p className="text-[9px] text-slate-400 font-bold mt-0.5">*T&C apply</p>
-              </div>
-            </div>
-            {/* Card 2: Yes Bank */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-4.5 flex items-center gap-3.5 shadow-3xs">
-              <div className="text-indigo-650 text-xxs font-black shrink-0 flex items-center gap-0.5">✓ <span className="tracking-tighter">YES BANK</span></div>
-              <div className="min-w-0">
-                <p className="text-xxs text-slate-800 font-extrabold leading-snug">Get 5% Instant Discount Upto Rs 2500 on YES Bank Credit Card EMI</p>
-                <p className="text-[9px] text-slate-400 font-bold mt-0.5">*T&C apply</p>
-              </div>
-            </div>
-            {/* Card 3: BOB Card */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-4.5 flex items-center gap-3.5 shadow-3xs">
-              <div className="text-orange-600 text-xxs font-black shrink-0 tracking-tighter">BOBCARD</div>
-              <div className="min-w-0">
-                <p className="text-xxs text-slate-800 font-extrabold leading-snug">Get 10% Instant Discount upto Rs.3,000 on BOB Card EMI</p>
-                <p className="text-[9px] text-slate-400 font-bold mt-0.5">*T&C apply</p>
-              </div>
-            </div>
-            {/* Card 4: DBS */}
-            <div className="bg-white border border-slate-100 rounded-2xl p-4.5 flex items-center gap-3.5 shadow-3xs">
-              <div className="bg-red-600 text-white text-[9px] font-black px-1.5 py-1 rounded shrink-0">DBS</div>
-              <div className="min-w-0">
-                <p className="text-xxs text-slate-800 font-extrabold leading-snug">Get 10% Instant Discount upto Rs.3000 on DBS Bank Credit Card EMI/Non EMI</p>
-                <p className="text-[9px] text-slate-400 font-bold mt-0.5">*T&C apply</p>
+            <div className="market-panel-light rounded-[1.75rem] p-5">
+              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500">Fast links</p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                {[
+                  { label: 'Catalog', to: '/catalog' },
+                  { label: 'Store locator', to: '/store-locator' },
+                  { label: 'Hire purchase', to: '/hire-purchase' },
+                  { label: 'Account', to: '/account' },
+                ].map((item) => (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    className="rounded-[1.25rem] border border-slate-200 bg-slate-50/80 px-4 py-4 text-sm font-black text-slate-800 transition-colors hover:border-[#1357d9]/30 hover:bg-[#1357d9]/8"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Amazon-style Highlights Grid */}
       <section className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          {/* Card 1: Keep shopping for */}
-          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
+        <div className="rounded-[2rem] border border-black/10 bg-white p-5 shadow-[0_18px_40px_rgba(11,13,16,0.08)]">
+          <div className="flex items-center justify-between gap-4">
             <div>
-              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Keep shopping for</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {allProducts.slice(0, 4).map((prod) => (
-                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
-                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
-                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
-                    </div>
-                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
-                  </div>
-                ))}
-              </div>
+              <h3 className="text-lg font-black uppercase tracking-[0.25em] text-slate-900">Category mosaic</h3>
+              <p className="mt-1 text-sm text-slate-500">Curated entrances instead of a long storefront shelf.</p>
             </div>
-            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
-              View your browsing history
+            <Link to="/catalog" className="text-xs font-black uppercase tracking-[0.25em] text-[#1357d9]">
+              Open all
             </Link>
           </div>
 
-          {/* Card 2: Continue shopping deals */}
-          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
-            <div>
-              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Continue shopping deals</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {allProducts.slice(4, 8).map((prod) => (
-                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
-                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
-                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
-                    </div>
-                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
-              See more deals
-            </Link>
-          </div>
-
-          {/* Card 3: Pick up where you left off */}
-          <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex flex-col justify-between">
-            <div>
-              <h3 className="text-sm sm:text-base font-extrabold text-slate-800 mb-3">Pick up where you left off</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {allProducts.slice(1, 5).map((prod) => (
-                  <div key={prod.id} onClick={() => navigate(`/product/${prod.id}`)} className="cursor-pointer group">
-                    <div className="aspect-square rounded-xl bg-slate-50 border border-slate-100 overflow-hidden flex items-center justify-center p-2 group-hover:border-indigo-200 transition-colors">
-                      <img src={prod.image} alt={prod.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" />
-                    </div>
-                    <p className="text-[10px] font-semibold text-slate-550 mt-1 truncate group-hover:text-indigo-650">{prod.name}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-4 inline-block hover:underline">
-              Laptops & Tech
-            </Link>
-          </div>
-
-          {/* Card 4: Promotions & Offers */}
-          <div className="space-y-4 flex flex-col justify-between">
-            {/* Box A: Bulk Discounts */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="text-sm sm:text-base font-extrabold text-slate-800 leading-tight">Bulk discounts + 10% guaranteed cashback !</h3>
-                <p className="text-[10px] text-slate-400 font-semibold mt-1">On business orders & bulk checkouts.</p>
-              </div>
-              <Link to="/catalog" className="text-xxs font-extrabold text-indigo-650 hover:text-[#fcd34d] mt-3 inline-block hover:underline">
-                Register now
-              </Link>
-            </div>
-            
-            {/* Box B: Deal of the Day promo */}
-            <div className="bg-[#fffbeb] border border-amber-100 rounded-3xl p-5 shadow-3xs flex-1 flex flex-col justify-between">
-              <div>
-                <span className="text-[9px] font-black uppercase text-amber-800 tracking-wider bg-amber-100 px-2 py-0.5 rounded-md inline-block">Promoted Offer</span>
-                <h3 className="text-xs sm:text-sm font-extrabold text-amber-955 mt-2 leading-tight">Little Joys Immunity Booster Pack</h3>
-                <p className="text-[10px] text-amber-800/80 font-bold mt-1">Get <span className="font-black text-rose-650">-9% off</span> on orders today!</p>
-              </div>
-              <Link to="/catalog" className="text-xxs font-extrabold text-amber-900 hover:text-amber-955 mt-3 inline-block hover:underline uppercase tracking-wider">
-                Shop Prime Deal
-              </Link>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* Shop by Category icon grid (merged with Summer Store layout and dynamic) */}
-      <section className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="bg-white border border-slate-100 rounded-3xl p-5 shadow-3xs">
-          
-          <div className="flex items-center justify-between mb-4 px-1">
-            <h3 className="text-lg sm:text-xl font-black uppercase tracking-wider text-slate-800">Shop by Category</h3>
-            <div className="flex items-center gap-1.5">
-              <button
-                onClick={() => scrollCategories('left')}
-                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 transition-colors shadow-xxs focus:outline-none"
-                aria-label="Previous categories"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => scrollCategories('right')}
-                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 transition-colors shadow-xxs focus:outline-none"
-                aria-label="Next categories"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory scrollbar-none" ref={categoryScrollRef}>
-            
-            {/* Summer Store Logo */}
-            <div className="flex flex-col items-center justify-center text-center p-2.5 group cursor-pointer shrink-0 snap-start min-w-[120px]" onClick={() => navigate('/catalog?search=summer')}>
-              <div className="flex flex-col items-center relative">
-                <span className="text-[20px] font-light text-rose-500 italic leading-none relative font-serif">
-                  summer
-                  <span className="absolute -top-3 -right-2 text-[12px]">☀️</span>
-                </span>
-                <span className="text-3xl font-black tracking-tighter text-red-650 leading-none mt-1">STORE</span>
-              </div>
-            </div>
-
-            {/* Dynamic Categories Icons */}
-            {categories.map((cat) => {
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {categories.slice(0, 8).map((cat, idx) => {
               const categorySlug = cat.name.toLowerCase().replace(/\s+/g, '-');
+              const palette = [
+                'from-[#f11d2b] to-[#0b0d10]',
+                'from-[#1357d9] to-[#0b0d10]',
+                'from-[#ffcb2f] to-[#f11d2b]',
+                'from-[#0b0d10] to-[#1357d9]',
+              ];
               return (
-                <div
+                <button
                   key={cat.id}
                   onClick={() => navigate(`/catalog?category=${categorySlug}`)}
-                  className="flex flex-col items-center justify-center text-center p-2 group cursor-pointer hover:scale-105 transition-transform shrink-0 snap-start min-w-[120px]"
+                  className={`group flex min-h-[150px] flex-col justify-between rounded-[1.5rem] bg-gradient-to-br ${palette[idx % palette.length]} p-4 text-left text-white shadow-lg transition-transform hover:-translate-y-1`}
                 >
-                  <div className="h-16 w-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-3xl group-hover:bg-indigo-50 transition-colors">
-                    {getIcon(cat.name)}
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="text-2xl">{cat.icon || '📦'}</span>
+                    <ArrowRight className="h-4 w-4 text-white/80 transition-transform group-hover:translate-x-1" />
                   </div>
-                  <span className="text-sm font-black text-slate-750 mt-2 truncate max-w-[110px]">{cat.name}</span>
-                </div>
+                  <div>
+                    <h4 className="text-base font-black leading-tight">{cat.name}</h4>
+                    <p className="mt-1 text-[10px] font-black uppercase tracking-[0.25em] text-white/70">Shop now</p>
+                  </div>
+                </button>
               );
             })}
-
           </div>
         </div>
       </section>
 
-      {/* Product Carousels */}
-      <section className="w-full px-4 sm:px-6 lg:px-8 space-y-10">
-        
-        {/* Featured finds */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 space-y-8">
         <ProductSliderSection
-          title="Best Featured Finds"
-          icon={<Sparkles className="h-5 w-5 text-indigo-500" />}
+          title="Featured Selection"
+          icon={<Sparkles className="h-5 w-5 text-[#f11d2b]" />}
           products={featuredProducts}
         />
 
-        {/* Best selling */}
         <ProductSliderSection
-          title="Best Selling"
-          icon={<TrendingUp className="h-5 w-5 text-indigo-500" />}
+          title="Best Sellers"
+          icon={<TrendingUp className="h-5 w-5 text-[#1357d9]" />}
           products={bestSellers}
         />
+      </section>
 
-        {/* Most Picked Items */}
-        <ProductSliderSection
-          title="Most Picked Items"
-          icon={<Flame className="h-5 w-5 text-rose-500" />}
-          products={trendingProducts}
-        />
-
-        {/* Related Items View */}
-        <ProductSliderSection
-          title="Related Items You've Viewed"
-          icon={<Bookmark className="h-5 w-5 text-emerald-500" />}
-          products={recentViews}
-        />
-
-        {/* PNG Made Items */}
-        <ProductSliderSection
-          title="PNG Made"
-          icon={<Globe className="h-5 w-5 text-amber-500" />}
-          products={pngMadeProducts}
-        />
-
-        {/* Sliding Top Brands */}
-        {brands.length > 0 && (
-          <div className="space-y-4 pt-4 border-t border-slate-100">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-indigo-500" />
-                <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">Top Brands</h2>
+      {brands.length > 0 && (
+        <section className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="rounded-[2rem] border border-black/10 bg-[#0b0d10] p-5 text-white shadow-[0_18px_40px_rgba(11,13,16,0.14)]">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-black uppercase tracking-[0.25em] text-[#ffcb2f]">Brands</h3>
+                <p className="mt-1 text-sm text-white/60">A restrained wall of partner names instead of another shopping shelf.</p>
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="hidden items-center gap-1.5 sm:flex">
                 <button
                   onClick={() => scrollBrands('left')}
-                  className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 transition-colors shadow-xxs focus:outline-none"
+                  className="rounded-full border border-white/10 bg-white/8 p-2 text-white transition-colors hover:bg-white/14"
                   aria-label="Previous brands"
                 >
                   <ChevronLeft className="h-4.5 w-4.5" />
                 </button>
                 <button
                   onClick={() => scrollBrands('right')}
-                  className="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-650 transition-colors shadow-xxs focus:outline-none"
+                  className="rounded-full border border-white/10 bg-white/8 p-2 text-white transition-colors hover:bg-white/14"
                   aria-label="Next brands"
                 >
                   <ChevronRight className="h-4.5 w-4.5" />
@@ -632,30 +551,20 @@ export const Home: React.FC = () => {
               </div>
             </div>
 
-            <div
-              ref={brandScrollRef}
-              className="flex gap-4 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-thin"
-            >
-              {brands.map((brand) => (
+            <div ref={brandScrollRef} className="mt-4 flex flex-wrap gap-3">
+              {brands.slice(0, 12).map((brand) => (
                 <button
                   key={brand}
                   onClick={() => navigate(`/catalog?search=${encodeURIComponent(brand)}`)}
-                  className="flex min-w-[140px] sm:min-w-[180px] snap-start flex-col items-center justify-center rounded-2xl border border-slate-100 bg-slate-55 bg-slate-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-150 hover:bg-white hover:shadow-md hover:shadow-indigo-100/50 group focus:outline-none"
+                  className="rounded-full border border-white/10 bg-white/8 px-4 py-2 text-sm font-bold text-white/85 transition-colors hover:border-[#ffcb2f] hover:text-[#ffcb2f]"
                 >
-                  {getBrandLogo(brand)}
-                  <span className="text-sm sm:text-base font-extrabold text-slate-700 group-hover:text-indigo-600 transition-colors">
-                    {brand}
-                  </span>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
-                    Explore items
-                  </span>
+                  {brand}
                 </button>
               ))}
             </div>
           </div>
-        )}
-
-      </section>
+        </section>
+      )}
 
     </div>
   );

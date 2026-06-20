@@ -13,7 +13,7 @@ export const AIChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
-      text: 'Kia ora! I am Tinni, your Courts AI Assistant. How can I help you with your shopping, loyalty points, or hire purchase query today?',
+      text: 'Hello! I am Tinni, your storefront assistant. How can I help you with shopping, loyalty points, or hire purchase today?',
       sender: 'ai',
       timestamp: new Date()
     }
@@ -199,19 +199,19 @@ export const AIChatWidget: React.FC = () => {
           top: `${position.y}px`,
           zIndex: 50,
         }}
-        className={`h-14 w-14 rounded-full flex items-center justify-center bg-[#0060a9] hover:bg-[#005596] text-white shadow-xl hover:scale-105 border border-white/20 cursor-grab active:cursor-grabbing transition-transform select-none ${
+        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/20 bg-gradient-to-br from-[#f11d2b] to-[#1357d9] text-white shadow-xl transition-transform select-none hover:scale-105 cursor-grab active:cursor-grabbing ${
           isDragging ? 'scale-105' : ''
         }`}
         title="AI Assistant Tinni - Drag to Reposition"
       >
         <Bot className="h-6 w-6 animate-pulse" />
         <span className="absolute -top-1 -right-1 flex h-4 w-4">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 text-[8px] font-black text-white items-center justify-center">AI</span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ffcb2f] opacity-75"></span>
+          <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#ffcb2f] text-[8px] font-black text-[#0b0d10]">AI</span>
         </span>
         
         {/* Tiny drag indicator handle on hover */}
-        <span className="absolute -bottom-2 bg-slate-900/80 text-white text-[8px] font-bold px-1 py-0.5 rounded opacity-0 hover:opacity-100 transition-opacity flex items-center gap-0.5 pointer-events-none">
+        <span className="absolute -bottom-2 flex items-center gap-0.5 rounded bg-slate-900/80 px-1 py-0.5 text-[8px] font-bold text-white opacity-0 transition-opacity hover:opacity-100 pointer-events-none">
           <Move className="h-2 w-2" /> DRAG
         </span>
       </button>
@@ -219,7 +219,7 @@ export const AIChatWidget: React.FC = () => {
       {/* Glassmorphic Chat Box Pane */}
       {isOpen && (
         <div 
-          className="fixed z-50 w-[calc(100vw-32px)] sm:w-[380px] h-[480px] rounded-3xl border border-slate-150 bg-white/95 backdrop-blur-md shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200"
+          className="fixed z-50 flex h-[480px] w-[calc(100vw-32px)] flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0b0d10]/96 shadow-2xl backdrop-blur-md animate-in fade-in slide-in-from-bottom-5 duration-200 sm:w-[380px]"
           style={{
             bottom: '85px',
             right: '16px',
@@ -230,14 +230,14 @@ export const AIChatWidget: React.FC = () => {
           }}
         >
           {/* Header */}
-          <div className="bg-[#0060a9] p-4 text-white flex items-center justify-between">
+          <div className="flex items-center justify-between bg-gradient-to-r from-[#f11d2b] to-[#1357d9] p-4 text-white">
             <div className="flex items-center gap-2.5">
               <div className="bg-white/10 p-1.5 rounded-xl">
                 <Bot className="h-5 w-5 text-white" />
               </div>
               <div>
                 <h3 className="text-xs font-black uppercase tracking-wide">Tinni AI Assistant</h3>
-                <span className="text-[10px] text-indigo-150 font-bold flex items-center gap-1">
+                <span className="flex items-center gap-1 text-[10px] font-bold text-white/80">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block animate-ping"></span>
                   Active SDK Link
                 </span>
@@ -245,31 +245,31 @@ export const AIChatWidget: React.FC = () => {
             </div>
             <button 
               onClick={() => setIsOpen(false)}
-              className="rounded-lg p-1.5 hover:bg-white/10 text-white transition-colors"
+              className="rounded-lg p-1.5 text-white transition-colors hover:bg-white/10"
             >
               <X className="h-4.5 w-4.5" />
             </button>
           </div>
 
           {/* Quick shortcuts */}
-          <div className="bg-slate-50/80 border-b border-slate-100 p-2.5 flex gap-1.5 overflow-x-auto scrollbar-none">
+          <div className="flex gap-1.5 overflow-x-auto border-b border-white/10 bg-white/5 p-2.5 scrollbar-none">
             <button 
               onClick={() => setInputText('How to earn loyalty points?')}
-              className="text-[10px] font-bold text-slate-600 border border-slate-200 rounded-lg px-2.5 py-1 bg-white hover:border-[#0060a9] hover:text-[#0060a9] transition-colors shrink-0"
+              className="shrink-0 rounded-full border border-white/10 bg-white/8 px-2.5 py-1 text-[10px] font-bold text-white/70 transition-colors hover:border-[#ffcb2f] hover:text-[#ffcb2f]"
             >
-              <Award className="h-3.5 w-3.5 inline mr-1 text-[#0060a9]" /> Loyalty Program
+              <Award className="mr-1 inline h-3.5 w-3.5 text-[#ffcb2f]" /> Loyalty Program
             </button>
             <button 
               onClick={() => setInputText('How does Hire Purchase work?')}
-              className="text-[10px] font-bold text-slate-600 border border-slate-200 rounded-lg px-2.5 py-1 bg-white hover:border-[#0060a9] hover:text-[#0060a9] transition-colors shrink-0"
+              className="shrink-0 rounded-full border border-white/10 bg-white/8 px-2.5 py-1 text-[10px] font-bold text-white/70 transition-colors hover:border-[#ffcb2f] hover:text-[#ffcb2f]"
             >
-              <Sparkles className="h-3.5 w-3.5 inline mr-1 text-[#0060a9]" /> Hire Purchase
+              <Sparkles className="mr-1 inline h-3.5 w-3.5 text-[#ffcb2f]" /> Hire Purchase
             </button>
             <button 
               onClick={() => setInputText('What is courts customer support phone number?')}
-              className="text-[10px] font-bold text-slate-600 border border-slate-200 rounded-lg px-2.5 py-1 bg-white hover:border-[#0060a9] hover:text-[#0060a9] transition-colors shrink-0"
+              className="shrink-0 rounded-full border border-white/10 bg-white/8 px-2.5 py-1 text-[10px] font-bold text-white/70 transition-colors hover:border-[#ffcb2f] hover:text-[#ffcb2f]"
             >
-              <HelpCircle className="h-3.5 w-3.5 inline mr-1 text-[#0060a9]" /> Get Support
+              <HelpCircle className="mr-1 inline h-3.5 w-3.5 text-[#ffcb2f]" /> Get Support
             </button>
           </div>
 
@@ -281,10 +281,10 @@ export const AIChatWidget: React.FC = () => {
                 className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div 
-                  className={`rounded-2xl p-3 text-xs leading-relaxed max-w-[85%] font-medium ${
+                  className={`max-w-[85%] rounded-2xl p-3 text-xs leading-relaxed font-medium ${
                     msg.sender === 'user'
-                      ? 'bg-[#0060a9] text-white rounded-br-none shadow-xxs'
-                      : 'bg-slate-100 text-slate-800 rounded-bl-none'
+                      ? 'rounded-br-none bg-gradient-to-r from-[#1357d9] to-[#f11d2b] text-white shadow-xxs'
+                      : 'rounded-bl-none bg-white/8 text-white'
                   }`}
                 >
                   {msg.text}
@@ -294,27 +294,27 @@ export const AIChatWidget: React.FC = () => {
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-slate-100 rounded-2xl rounded-bl-none p-3 max-w-[85%] flex items-center gap-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce"></span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce delay-100"></span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce delay-200"></span>
+                <div className="flex max-w-[85%] items-center gap-1 rounded-2xl rounded-bl-none bg-white/8 p-3">
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-white/60"></span>
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-white/60 delay-100"></span>
+                  <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-white/60 delay-200"></span>
                 </div>
               </div>
             )}
           </div>
 
           {/* Bottom input area */}
-          <form onSubmit={handleSendMessage} className="p-3 border-t border-slate-100 bg-slate-50 flex gap-2">
+          <form onSubmit={handleSendMessage} className="flex gap-2 border-t border-white/10 bg-white/5 p-3">
             <input
               type="text"
               placeholder="Ask anything..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="flex-1 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-805 focus:border-[#0060a9] focus:outline-none"
+              className="flex-1 rounded-2xl border border-white/10 bg-white/8 px-3.5 py-2 text-xs font-semibold text-white placeholder:text-white/35 focus:border-[#ffcb2f] focus:outline-none"
             />
             <button
               type="submit"
-              className="bg-[#0060a9] hover:bg-[#005596] text-white rounded-xl p-2.5 shadow-xs transition-colors shrink-0"
+              className="shrink-0 rounded-2xl bg-[#ffcb2f] p-2.5 text-[#0b0d10] shadow-xs transition-colors hover:bg-white"
             >
               <Send className="h-4.5 w-4.5" />
             </button>

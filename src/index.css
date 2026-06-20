@@ -1,22 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-primary: #0060a9; /* Courts Blue */
-  --color-brand-secondary: #e21a22; /* Courts Red */
-  --color-brand-accent: #ffe600; /* Courts Yellow */
+  --color-brand-primary: #1357d9;
+  --color-brand-secondary: #f11d2b;
+  --color-brand-accent: #ffcb2f;
 
-  /* Override standard indigo color scale to use Courts Blue shades */
-  --color-indigo-50: #ebf5fc;
-  --color-indigo-100: #d1eafd;
-  --color-indigo-200: #a3d4f8;
-  --color-indigo-300: #6bbcf2;
-  --color-indigo-400: #2c9dea;
-  --color-indigo-500: #0e85eb;
-  --color-indigo-600: #0060a9;
-  --color-indigo-700: #00508d;
-  --color-indigo-800: #003f6e;
-  --color-indigo-900: #002e51;
-  --color-indigo-950: #00182b;
+  --color-indigo-50: #eaf1ff;
+  --color-indigo-100: #d8e5ff;
+  --color-indigo-200: #b6ccff;
+  --color-indigo-300: #87a8ff;
+  --color-indigo-400: #5a84ff;
+  --color-indigo-500: #2f66f1;
+  --color-indigo-600: #1357d9;
+  --color-indigo-700: #1148b2;
+  --color-indigo-800: #0f3a8c;
+  --color-indigo-900: #0c2f6e;
+  --color-indigo-950: #081c41;
+
+  --color-slate-50: #f4f5f7;
+  --color-slate-100: #e6e8ee;
+  --color-slate-200: #d0d5e0;
+  --color-slate-300: #aab3c4;
+  --color-slate-400: #7d879a;
+  --color-slate-500: #5d6677;
+  --color-slate-600: #444d5c;
+  --color-slate-700: #2f3743;
+  --color-slate-800: #1a202c;
+  --color-slate-900: #0b0d10;
 }
 
 /* Custom scrollbar and premium utility styles */
@@ -39,10 +49,13 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Space Grotesk", "Avenir Next", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
-  background-color: #f8fafc;
-  color: #1e293b;
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 47, 0.16), transparent 28%),
+    radial-gradient(circle at top right, rgba(241, 29, 43, 0.12), transparent 26%),
+    linear-gradient(180deg, #090b10 0%, #0e121a 26%, #f4f5f7 26%, #f4f5f7 100%);
+  color: #10131a;
 }
 
 /* Glassmorphism utility */
@@ -59,4 +72,47 @@ body {
 }
 .zoom-image:hover {
   transform: scale(1.5);
+}
+
+.market-shell {
+  background:
+    radial-gradient(circle at top left, rgba(255, 203, 47, 0.22), transparent 20%),
+    radial-gradient(circle at top right, rgba(19, 87, 217, 0.18), transparent 22%),
+    linear-gradient(180deg, #090b10 0%, #111827 18%, #f4f5f7 18%, #f4f5f7 100%);
+}
+
+.market-panel {
+  background: linear-gradient(180deg, rgba(14, 18, 26, 0.96), rgba(22, 28, 38, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(7, 10, 16, 0.18);
+}
+
+.market-panel-light {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 248, 252, 0.98));
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.market-ribbon {
+  background: linear-gradient(90deg, #f11d2b 0 22%, #ffcb2f 22% 44%, #1357d9 44% 66%, #0b0d10 66% 100%);
+}
+
+.market-badge {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(11, 13, 16, 0.82);
+  color: #ffcb2f;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.market-button {
+  background: linear-gradient(135deg, #f11d2b 0%, #ffcb2f 100%);
+  color: #0b0d10;
+  box-shadow: 0 12px 30px rgba(241, 29, 43, 0.24);
+}
+
+.market-input {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #111827;
 }
