@@ -126,7 +126,7 @@ export const Home: React.FC = () => {
       cta: "Browse the Catalog",
       link: "/catalog",
       bg: "bg-[#0b0d10]",
-      img: getAssetUrl('/hero.png'),
+      img: getAssetUrl('/xiaomi_banner.png'),
       isXiaomi: false
     },
     {
