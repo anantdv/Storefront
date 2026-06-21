@@ -68,10 +68,12 @@ export const authService = {
 
     // Resolve display name from User doctype
     let name = email.split('@')[0];
+    let imageUrl: string | undefined;
     try {
       const detailRes = await client.get(`/api/resource/User/${email}`);
       const d = detailRes.data?.data;
       if (d) name = d.full_name || d.first_name || name;
+      if (d) imageUrl = d.user_image || d.image || d.profile_image || d.profile_picture || '';
     } catch (e) {
       console.warn('Could not fetch User profile, using email prefix as name:', e);
     }
@@ -95,7 +97,7 @@ export const authService = {
 
     return {
       token: 'session_active',
-      user: { email, name, loyaltyPoints, addresses: [] },
+      user: { email, name, imageUrl, loyaltyPoints, addresses: [] },
     };
   },
 

@@ -49,6 +49,7 @@ export interface UserProfile {
   email: string;
   name: string;
   phone?: string;
+  imageUrl?: string;
   loyaltyPoints: number;
   addresses: Address[];
 }

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
 import { useWishlistStore } from '../store/useWishlistStore';
 import { useConfigStore } from '../store/useConfigStore';
 import { orderService } from '../services/order.service';
 import { authService } from '../services/auth.service';
+import { UserAvatar } from '../components/common/UserAvatar';
 import { ProductCard } from '../components/product/ProductCard';
 import { TrackingTimeline } from '../components/order/TrackingTimeline';
 import { Order, Address } from '../types/shop.types';
-import { User, Package, MapPin, Heart, Award, ArrowRight, ShieldCheck, Mail, Lock } from 'lucide-react';
+import { User, Package, MapPin, Heart, Award, ArrowRight, ShieldCheck, Mail, Lock, CreditCard, ReceiptText, FileText } from 'lucide-react';
 
 export const Account: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -254,7 +255,7 @@ export const Account: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-2xl sm:text-3xl font-black text-slate-800 tracking-tight leading-none mb-8 margin-0">My Account</h1>
+      <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-none mb-8 margin-0">My Account</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
         
@@ -285,6 +286,33 @@ export const Account: React.FC = () => {
           >
             Logout
           </button>
+
+          <div className="pt-4">
+            <p className="px-4 pb-2 text-[10px] font-black uppercase tracking-[0.28em] text-slate-400">More Options</p>
+            <div className="space-y-1.5">
+              <Link
+                to="/hire-purchase"
+                className="flex w-full items-center gap-3.5 rounded-2xl px-4.5 py-3 text-sm font-semibold text-slate-650 transition-all hover:bg-slate-50"
+              >
+                <CreditCard className="h-4.5 w-4.5 text-[#1357d9]" />
+                <span>Hire Purchase</span>
+              </Link>
+              <Link
+                to="/account?tab=orders"
+                className="flex w-full items-center gap-3.5 rounded-2xl px-4.5 py-3 text-sm font-semibold text-slate-650 transition-all hover:bg-slate-50"
+              >
+                <ReceiptText className="h-4.5 w-4.5 text-[#1357d9]" />
+                <span>Statements</span>
+              </Link>
+              <Link
+                to="/hire-purchase#documents"
+                className="flex w-full items-center gap-3.5 rounded-2xl px-4.5 py-3 text-sm font-semibold text-slate-650 transition-all hover:bg-slate-50"
+              >
+                <FileText className="h-4.5 w-4.5 text-[#1357d9]" />
+                <span>Documentation</span>
+              </Link>
+            </div>
+          </div>
         </aside>
 
         {/* Tab Detail Pane */}
@@ -294,9 +322,13 @@ export const Account: React.FC = () => {
           {activeTab === 'profile' && user && (
             <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-xxs space-y-6">
               <div className="flex items-center gap-4 border-b border-slate-50 pb-5">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-700 text-xl font-black">
-                  {user.name[0]}
-                </div>
+                <UserAvatar
+                  name={user.name}
+                  imageUrl={user.imageUrl}
+                  className="h-14 w-14 rounded-2xl border border-indigo-100 bg-indigo-50"
+                  fallbackClassName="bg-indigo-50 text-indigo-700 text-xl font-black"
+                  imageClassName="object-cover"
+                />
                 <div>
                   <h3 className="text-base font-extrabold text-slate-850">{user.name}</h3>
                   <p className="text-xs text-slate-400 font-semibold">{user.email}</p>

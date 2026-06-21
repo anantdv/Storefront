@@ -5,6 +5,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import { useUIStore } from '../../store/useUIStore';
 import { productService } from '../../services/product.service';
 import { Category } from '../../types/shop.types';
+import { UserAvatar } from '../common/UserAvatar';
 import { getAssetUrl } from '../../utils/assets';
 
 interface MobileNavProps {
@@ -51,9 +52,13 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
         <div className="border-b border-white/10 p-4">
           {isAuthenticated ? (
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1357d9] text-sm font-black text-white">
-                {user?.name[0]}
-              </div>
+              <UserAvatar
+                name={user?.name}
+                imageUrl={user?.imageUrl}
+                className="h-10 w-10 rounded-2xl border border-white/10 bg-[#1357d9]"
+                fallbackClassName="bg-[#1357d9] text-white text-sm font-black"
+                imageClassName="object-cover"
+              />
               <div className="truncate">
                 <p className="text-sm font-bold text-white">{user?.name}</p>
                 <p className="truncate text-xs text-white/55">{user?.email}</p>

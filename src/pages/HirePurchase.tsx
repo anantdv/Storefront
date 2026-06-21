@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import { useConfigStore } from '../store/useConfigStore';
+import { UserAvatar } from '../components/common/UserAvatar';
 import { getAssetUrl } from '../utils/assets';
 
 type EmployeeType = 'government' | 'private';
@@ -744,6 +745,7 @@ export const HirePurchase: React.FC = () => {
   const customerName = user?.name || 'Guest Customer';
   const customerEmail = user?.email || 'customer@courts.com.pg';
   const customerPhone = user?.phone || '+675 7000 0000';
+  const customerImageUrl = user?.imageUrl;
   const initials = customerName.trim().slice(0, 1).toUpperCase() || 'C';
   const customerId = `CRTS-${hashString(`${customerName}-${customerEmail}`).toString(36).toUpperCase().slice(0, 8)}`;
   const loanId = `HP-${hashString(`${customerEmail}-${loanAmount}-${termMonths}`).toString(36).toUpperCase().slice(0, 8)}`;
@@ -1113,7 +1115,7 @@ export const HirePurchase: React.FC = () => {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-[#10131a] p-6 text-white shadow-[0_18px_40px_rgba(11,13,16,0.18)]">
+            <div id="documents" className="rounded-[2rem] border border-white/10 bg-[#10131a] p-6 text-white shadow-[0_18px_40px_rgba(11,13,16,0.18)]">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ffcb2f]">Documents</p>
@@ -1156,9 +1158,13 @@ export const HirePurchase: React.FC = () => {
                 <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1357d9] text-lg font-black text-white">
-                        {initials}
-                      </div>
+                      <UserAvatar
+                        name={customerName}
+                        imageUrl={customerImageUrl}
+                        className="h-12 w-12 rounded-2xl border border-white/10 bg-[#1357d9]"
+                        fallbackClassName="bg-[#1357d9] text-white text-lg font-black"
+                        imageClassName="object-cover"
+                      />
                       <div>
                         <p className="text-[10px] font-black uppercase tracking-[0.24em] text-white/45">Status</p>
                         <p className="mt-2 inline-flex rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-black text-emerald-300">Active</p>
@@ -1209,9 +1215,13 @@ export const HirePurchase: React.FC = () => {
               <div className="space-y-3">
                 <div className="rounded-[1.5rem] border border-white/10 bg-white/10 p-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ffcb2f] text-lg font-black text-[#0b0d10]">
-                      {initials}
-                    </div>
+                    <UserAvatar
+                      name={customerName}
+                      imageUrl={customerImageUrl}
+                      className="h-14 w-14 rounded-2xl border border-white/10 bg-[#ffcb2f]"
+                      fallbackClassName="bg-[#ffcb2f] text-[#0b0d10] text-lg font-black"
+                      imageClassName="object-cover"
+                    />
                     <div className="min-w-0">
                       <p className="text-[10px] font-black uppercase tracking-[0.24em] text-white/70">Customer</p>
                       <p className="truncate text-lg font-black">{customerName}</p>

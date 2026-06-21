@@ -254,6 +254,7 @@ export const MOCK_USER: UserProfile = {
   name: 'John Doe',
   email: 'john.doe@example.com',
   phone: '+1 (555) 019-2834',
+  imageUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=John%20Doe',
   loyaltyPoints: 340,
   addresses: [
     {

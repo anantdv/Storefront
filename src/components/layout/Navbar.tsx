@@ -7,6 +7,7 @@ import { useAuthStore } from '../../store/useAuthStore';
 import { useConfigStore } from '../../store/useConfigStore';
 import { useUIStore } from '../../store/useUIStore';
 import { productService } from '../../services/product.service';
+import { UserAvatar } from '../common/UserAvatar';
 import { getAssetUrl } from '../../utils/assets';
 
 interface NavbarProps {
@@ -257,9 +258,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
                       onClick={() => setShowProfileMenu(!showProfileMenu)}
                       className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 p-1 pr-3 text-white transition-all hover:bg-white/10"
                     >
-                      <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#ffcb2f] text-xs font-bold text-[#0b0d10]">
-                        {user?.name ? user.name[0] : <User className="h-4 w-4" />}
-                      </div>
+                      <UserAvatar
+                        name={user?.name}
+                        imageUrl={user?.imageUrl}
+                        className="h-7 w-7 rounded-full border border-white/10 bg-[#ffcb2f]"
+                        fallbackClassName="bg-[#ffcb2f] text-[#0b0d10] text-xs font-bold"
+                        imageClassName="object-cover"
+                      />
                       <span className="hidden max-w-[80px] truncate text-xs font-bold text-white sm:inline-block">
                         {user?.name.split(' ')[0]}
                       </span>
